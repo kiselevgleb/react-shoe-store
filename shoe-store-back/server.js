@@ -62,4 +62,59 @@ router.get('/api/items', async (ctx, next) => {
 
     const categoryId = query.categoryId === undefined ? 0 : Number(query.categoryId);
     const offset = query.offset === undefined ? 0 : Number(query.offset);
-    const q = query.q === undefined ? '' : query.q.trim().to
+    const q = query.q === undefined ? '' : query.q.trim().toLowerCase();
+
+    const filtered = items
+        .filter(o => categoryId === 0 || o.category === categoryId)
+        .filter(o => o.title.toLowerCase().includes(q) || o.color.toLowerCase() === q)
+        .slice(offset, offset + moreCount)
+        .map(itemBasicMapper);
+
+    return fortune(ctx, filtered);
+});
+
+router.get('/api/items/:id', async (ctx, next) => {
+    const id = Number(ctx.params.id);
+    const item = items.find(o => o.id === id);
+    if (item === undefined) {
+        return fortune(ctx, 'Not found', 404);
+    }
+
+    return fortune(ctx, item);
+});
+
+router.post('/api/order', async (ctx, next) => {
+    const { owner: { phone, address }, items } = ctx.request.body;
+    if (typeof phone !== 'string') {
+        return fortune(ctx, 'Bad Request: Phone', 400);
+    }
+    if (typeof address !== 'string') {
+        return fortune(ctx, 'Bad Request: Address', 400);
+    }
+    if (!Array.isArray(items)) {
+        return fortune(ctx, 'Bad Request: Items', 400);
+    }
+    if (!items.every(({ id, price, count }) => {
+        if (typeof id !== 'number' || id <= 0) {
+            return false;
+        }
+        if (typeof price !== 'number' || price <= 0) {
+            return false;
+        }
+        if (typeof count !== 'number' || count <= 0) {
+            return false;
+        }
+        return true;
+    })) {
+        return fortune(ctx, 'Bad Request', 400);
+    }
+
+    return fortune(ctx, null, 204);
+});
+
+app.use(router.routes())
+app.use(router.allowedMethods());
+
+const port = process.env.PORT || 7070;
+const server = http.createServer(app.callback());
+server.listen(port);

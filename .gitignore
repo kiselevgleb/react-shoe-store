@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/shoe-store-back
 /.pnp
 .pnp.js
 
