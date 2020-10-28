@@ -26,19 +26,19 @@ export const searchItemsRequest = search => ({
   payload: {search},
 });
 
-export const searchItemsFailure = error => ({
+export const searchItemsFailure = errorSearch => ({
   type: SEARCH_ITEMS_FAILURE,
-  payload: {error},
+  payload: {errorSearch},
 });
 
-export const searchItemsSuccess = items => ({
+export const searchItemsSuccess = itemsSearch => ({
   type: SEARCH_ITEMS_SUCCESS,
-  payload: {items},
+  payload: {itemsSearch},
 });
 
-export const changeSearchField = search => ({
+export const changeSearchField = searchChange => ({
   type: CHANGE_SEARCH_FIELD,
-  payload: {search},
+  payload: {searchChange},
 });
 
 

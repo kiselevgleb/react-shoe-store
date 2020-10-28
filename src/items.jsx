@@ -3,7 +3,8 @@ import { getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsR
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Items() {
-    const { items, categories, hits, loading, error } = useSelector(state => state.skills);
+    const { items, categories, hits, loading, error, search } = useSelector(state => state.skills);
+
     const [cat, setCat] = useState("");
     const [coin, setCoin] = useState(6);
     const dispatch = useDispatch();

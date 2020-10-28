@@ -54,18 +54,18 @@ export default function skillsReducer(state = initialState, action) {
         error: null,
       };
     case CHANGE_SEARCH_FIELD:
-      const {search} = action.payload;
-      const hasQuery = search.trim() == '';
+      const {searchChange} = action.payload;
+      const hasQuery = searchChange.trim() == '';
       if(hasQuery){
       return {
         ...state,
         // items: [],
-        search
+        search:searchChange
       };}
       else{
         return {
           ...state,
-          search
+          search:searchChange
         };
       };
 

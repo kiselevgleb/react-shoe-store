@@ -3,14 +3,13 @@ import { searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItems
 import {SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
 import { listItems, listHits, listCategories, itemsInCategory, addItems, searchItems } from '../api/index';
 
-
 function filterChangeSearchAction({type, payload}) {
-    return type === CHANGE_SEARCH_FIELD && payload.search.trim() !== ''
+    return type === CHANGE_SEARCH_FIELD && payload.searchChange.trim() !== ''
 }
 
 // worker
 function *handleChangeSearchSaga(action) {
-    yield put(searchItemsRequest(action.payload.search));
+    yield put(searchItemsRequest(action.payload.searchChange));
 }
 
 // watcher
@@ -34,17 +33,6 @@ function* handleSearchItemsSaga(action) {
 function* watchSearchItemsSaga() {
     yield takeLatest(SEARCH_ITEMS_REQUEST, handleSearchItemsSaga);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
