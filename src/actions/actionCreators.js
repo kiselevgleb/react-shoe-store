@@ -11,7 +11,52 @@ import {
   GET_HIT_REQUEST,
   GET_HIT_FAILURE,
   GET_HIT_SUCCESS,
+  GET_ADDITEMS_REQUEST,
+  GET_ADDITEMS_FAILURE,
+  GET_ADDITEMS_SUCCESS,
+  SEARCH_ITEMS_REQUEST,
+  SEARCH_ITEMS_FAILURE,
+  SEARCH_ITEMS_SUCCESS,
+  CHANGE_SEARCH_FIELD,
 } from './actionTypes';
+
+
+export const searchItemsRequest = search => ({
+  type: SEARCH_ITEMS_REQUEST,
+  payload: {search},
+});
+
+export const searchItemsFailure = error => ({
+  type: SEARCH_ITEMS_FAILURE,
+  payload: {error},
+});
+
+export const searchItemsSuccess = items => ({
+  type: SEARCH_ITEMS_SUCCESS,
+  payload: {items},
+});
+
+export const changeSearchField = search => ({
+  type: CHANGE_SEARCH_FIELD,
+  payload: {search},
+});
+
+
+export const getAddItemsRequest = (coin, cat) => ({
+  type: GET_ADDITEMS_REQUEST,
+  payload: { coin, cat },
+  // payload: { cat },
+});
+
+export const getAddItemsFailure = errorAddItems => ({
+  type: GET_ADDITEMS_FAILURE,
+  payload: { errorAddItems },
+});
+
+export const getAddItemsSuccess = additems => ({
+  type: GET_ADDITEMS_SUCCESS,
+  payload: { additems },
+});
 
 export const getItemsCatRequest = (id) => ({
   type: GET_ITEMSCAT_REQUEST,

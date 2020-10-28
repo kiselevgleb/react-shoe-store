@@ -2,18 +2,17 @@ import React, { Fragment, useState, useEffect  } from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
-import ProductsCatalog from './productsCatalog';
 import Items from './items';
 
 export default function Catalog() {
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_ITEMS_URL}`)
-            .then(response => response.json())
-            .then(rates => {
-                setProducts(rates);
-            });
-    })
+    // const [products, setProducts] = useState([]);
+    // useEffect(() => {
+    //     fetch(`${process.env.REACT_APP_ITEMS_URL}`)
+    //         .then(response => response.json())
+    //         .then(rates => {
+    //             setProducts(rates);
+    //         });
+    // })
 
     return (
         <Fragment>

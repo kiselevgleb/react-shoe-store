@@ -11,6 +11,13 @@ import {
   GET_HIT_REQUEST,
   GET_HIT_FAILURE,
   GET_HIT_SUCCESS,
+  GET_ADDITEMS_REQUEST,
+  GET_ADDITEMS_FAILURE,
+  GET_ADDITEMS_SUCCESS,
+  SEARCH_ITEMS_REQUEST,
+  SEARCH_ITEMS_FAILURE,
+  SEARCH_ITEMS_SUCCESS,
+  CHANGE_SEARCH_FIELD,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -19,10 +26,72 @@ const initialState = {
   hits: [],
   loading: false,
   error: null,
+  search: '',
 };
 
 export default function skillsReducer(state = initialState, action) {
   switch (action.type) {
+
+    case SEARCH_ITEMS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case SEARCH_ITEMS_FAILURE:
+      const {errorSearch} = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error:errorSearch,
+      };
+    case SEARCH_ITEMS_SUCCESS:
+      const {itemsSearch} = action.payload;
+      return {
+        ...state,
+        items:itemsSearch,
+        loading: false,
+        error: null,
+      };
+    case CHANGE_SEARCH_FIELD:
+      const {search} = action.payload;
+      const hasQuery = search.trim() == '';
+      if(hasQuery){
+      return {
+        ...state,
+        // items: [],
+        search
+      };}
+      else{
+        return {
+          ...state,
+          search
+        };
+      };
+
+    case GET_ADDITEMS_REQUEST:
+      const { coin, cat } = action.payload;
+      
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_ADDITEMS_FAILURE:
+      const { errorAddItems } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error:errorAddItems,
+      };
+    case GET_ADDITEMS_SUCCESS:
+      const { additems } = action.payload;
+      return {
+        ...state,
+        items: additems,
+        loading: false,
+        error: null,
+      };
 
     case GET_ITEMSCAT_REQUEST:
       const { id } = action.payload;
@@ -36,7 +105,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        errorItemsCat,
+        error:errorItemsCat,
       };
     case GET_ITEMSCAT_SUCCESS:
       const { itemsCat } = action.payload;
@@ -79,7 +148,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        errorCat,
+        error:errorCat,
       };
     case GET_CATEGORIES_SUCCESS:
       const { categories } = action.payload;
@@ -101,7 +170,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        errorHit,
+        error:errorHit,
       };
     case GET_HIT_SUCCESS:
       const { hits } = action.payload;

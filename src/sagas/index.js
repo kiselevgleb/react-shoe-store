@@ -1,7 +1,77 @@
-import { takeEvery, take, put, spawn, debounce, retry } from 'redux-saga/effects';
-import { getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
-import { GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST } from '../actions/actionTypes';
-import { listItems, listHits, listCategories, itemsInCategory } from '../api/index';
+import { takeEvery, takeLatest, take, put, spawn, debounce, retry } from 'redux-saga/effects';
+import { searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
+import {SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
+import { listItems, listHits, listCategories, itemsInCategory, addItems, searchItems } from '../api/index';
+
+
+function filterChangeSearchAction({type, payload}) {
+    return type === CHANGE_SEARCH_FIELD && payload.search.trim() !== ''
+}
+
+// worker
+function *handleChangeSearchSaga(action) {
+    yield put(searchItemsRequest(action.payload.search));
+}
+
+// watcher
+function* watchChangeSearchSaga() {
+    yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
+}
+
+// worker
+function* handleSearchItemsSaga(action) {
+    try {
+        const retryCount = 3;
+        const retryDelay = 1 * 1000; // ms
+        const data = yield retry(retryCount, retryDelay, searchItems, action.payload.search);
+        yield put(searchItemsSuccess(data));
+    } catch (e) {
+        yield put(searchItemsFailure(e.message));
+    }
+}
+
+// watcher
+function* watchSearchItemsSaga() {
+    yield takeLatest(SEARCH_ITEMS_REQUEST, handleSearchItemsSaga);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function filterGetAddItemsAction({ type, payload }) {
+    return type === GET_ADDITEMS_REQUEST && payload.coin !== ''
+}
+
+// watcher
+function* watchGetAddItemsSaga() {
+    yield debounce(100, filterGetAddItemsAction, handleGetAddItemsSaga);
+}
+
+// worker
+function* handleGetAddItemsSaga(action) {
+    try {
+        const retryCount = 3;
+        const retryDelay = 1 * 1000; // ms
+        const data = yield retry(retryCount, retryDelay, addItems, action.payload.coin, action.payload.cat);
+        yield put(getAddItemsSuccess(data));
+    } catch (e) {
+        yield put(getAddItemsFailure(e.message));
+    }
+}
+
+
 
 function filterGetItemsCatAction({ type, payload }) {
     return type === GET_ITEMSCAT_REQUEST && payload.id !== ''
@@ -76,4 +146,7 @@ export default function* saga() {
     yield spawn(watchGetHitsSaga);
     yield spawn(watchGetCategoriesSaga);
     yield spawn(watchGetItemsCatSaga);
+    yield spawn(watchGetAddItemsSaga);
+    yield spawn(watchChangeSearchSaga);
+    yield spawn(watchSearchItemsSaga);
 }

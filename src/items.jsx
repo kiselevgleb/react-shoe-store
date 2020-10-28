@@ -1,20 +1,31 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { getItemsRequest, getCategoriesRequest, getItemsCatRequest } from './actions/actionCreators';
+import { getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsRequest } from './actions/actionCreators';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Items() {
     const { items, categories, hits, loading, error } = useSelector(state => state.skills);
+    const [cat, setCat] = useState("");
+    const [coin, setCoin] = useState(6);
     const dispatch = useDispatch();
-
+    // let cat = "";
+    // let coin = 6;
     useEffect(() => {
         dispatch(getItemsRequest());
         dispatch(getCategoriesRequest());
     }, [dispatch])
 
     const getProducts = id => {
+        console.log(id)
+        setCoin(6);
+        setCat(id);
         dispatch(getItemsCatRequest(id));
     };
 
+    const loadItems = () => {
+        console.log(cat)
+        dispatch(getAddItemsRequest(coin, cat));
+        setCoin(coin+6);
+    };
     return (
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">
@@ -40,7 +51,7 @@ export default function Items() {
                     </div>)}
             </div>
             <div class="text-center">
-                <button class="btn btn-outline-primary">Загрузить ещё</button>
+                <button class="btn btn-outline-primary" onClick={() => loadItems()}>Загрузить ещё</button>
             </div>
         </Fragment>
     )
