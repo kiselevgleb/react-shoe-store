@@ -6,16 +6,20 @@ import Error404 from './Error404';
 import Contacts from './Contacts';
 import Catalog from './Catalog';
 import About from './About';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from "history";
 
-function App() {
+function App(props) {
+  const customHistory = createBrowserHistory();
   return (
-    <Router>
+    <Router history={customHistory}>
+      <Switch>
       <Route path='/' exact component={Main} />
       <Route path='/404' exact component={Error404} />
       <Route path='/catalog.html' component={Catalog} />
       <Route path='/about.html' component={About} />
       <Route path='/contacts.html' component={Contacts} />
+      </Switch>
     </Router>
   );
 }

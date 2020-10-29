@@ -47,7 +47,6 @@ export const addItems = async (coin, cat) => {
 }
 
 export const searchItems = async (search) => {
-    // const params = new URLSearchParams({q: search});
     const response = await fetch(`${process.env.REACT_APP_ITEMS_URL}?q=${search}`);
     if (!response.ok) {
         throw new Error(response.statusText);

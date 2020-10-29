@@ -20,7 +20,6 @@ import {
   CHANGE_SEARCH_FIELD,
 } from './actionTypes';
 
-
 export const searchItemsRequest = search => ({
   type: SEARCH_ITEMS_REQUEST,
   payload: {search},
@@ -45,7 +44,6 @@ export const changeSearchField = searchChange => ({
 export const getAddItemsRequest = (coin, cat) => ({
   type: GET_ADDITEMS_REQUEST,
   payload: { coin, cat },
-  // payload: { cat },
 });
 
 export const getAddItemsFailure = errorAddItems => ({

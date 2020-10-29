@@ -34,10 +34,6 @@ function* watchSearchItemsSaga() {
     yield takeLatest(SEARCH_ITEMS_REQUEST, handleSearchItemsSaga);
 }
 
-
-
-
-
 function filterGetAddItemsAction({ type, payload }) {
     return type === GET_ADDITEMS_REQUEST && payload.coin !== ''
 }
@@ -58,8 +54,6 @@ function* handleGetAddItemsSaga(action) {
         yield put(getAddItemsFailure(e.message));
     }
 }
-
-
 
 function filterGetItemsCatAction({ type, payload }) {
     return type === GET_ITEMSCAT_REQUEST && payload.id !== ''

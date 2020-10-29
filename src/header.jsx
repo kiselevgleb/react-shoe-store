@@ -1,7 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import mainLogo from './img/header-logo.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeSearchField } from './actions/actionCreators';
+// import {history} from "history";
 
-export default function Header() {
+export default function Header(props) {
+    const [searchInput, setSearchInput] = useState("");
+    const [searchBut, setSearchBut] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleSearchBut = () => {
+        if (searchBut) {
+            if (searchInput !== "") {
+                setSearchBut(false);
+                props.history.push('/catalog.html');
+                console.log(searchInput)
+                dispatch(changeSearchField(searchInput));
+                
+            } else {
+                setSearchBut(false);
+            }
+        } else {
+            setSearchBut(true);
+        }
+        console.log(777)
+        console.log(searchBut)
+    };
+    const handleSearchInput = (evt) => {
+        setSearchInput(evt.target.value);
+    };
 
     return (
         <Fragment>
@@ -29,15 +56,16 @@ export default function Header() {
                                 </ul>
                                 <div>
                                     <div className="header-controls-pics">
-                                        <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
+                                        <div data-id="search-expander" className="header-controls-pic header-controls-search" to={`/contacts.html`} onClick={handleSearchBut}></div>
                                         <div className="header-controls-pic header-controls-cart">
                                             <div className="header-controls-cart-full">1</div>
                                             <div className="header-controls-cart-menu"></div>
                                         </div>
                                     </div>
-                                    <form data-id="search-form" className="header-controls-search-form form-inline invisible">
-                                        <input className="form-control" placeholder="Поиск" />
-                                    </form>
+                                    {searchBut &&
+                                        <form data-id="search-form" className="header-controls-search-form form-inline">
+                                            <input className="form-control" placeholder="Поиск" type="search" onChange={handleSearchInput} />
+                                        </form>}
                                 </div>
                             </div>
                         </nav>

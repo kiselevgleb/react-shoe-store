@@ -5,7 +5,7 @@ import Banner from './banner';
 import Items from './items';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSearchField } from './actions/actionCreators';
-export default function Catalog() {
+export default function Catalog(props) {
     const { items, categories, hits, loading, error, search } = useSelector(state => state.skills);
     const dispatch = useDispatch();
 
@@ -13,18 +13,10 @@ export default function Catalog() {
         const { value } = evt.target;
         dispatch(changeSearchField(value));
     };
-    // const [products, setProducts] = useState([]);
-    // useEffect(() => {
-    //     fetch(`${process.env.REACT_APP_ITEMS_URL}`)
-    //         .then(response => response.json())
-    //         .then(rates => {
-    //             setProducts(rates);
-    //         });
-    // })
 
     return (
         <Fragment>
-            <Header></Header>
+            <Header history={props.history}></Header>
             <main className="container">
                 <div className="row">
                     <div className="col">

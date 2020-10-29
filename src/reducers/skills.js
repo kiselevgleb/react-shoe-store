@@ -59,7 +59,6 @@ export default function skillsReducer(state = initialState, action) {
       if(hasQuery){
       return {
         ...state,
-        // items: [],
         search:searchChange
       };}
       else{

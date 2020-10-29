@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
-export default function Error404() {
+export default function Error404(props) {
 
     return (
         <Fragment>
-            <Header></Header>
+            <Header history={props.history}></Header>
             <main className="container">
                 <div className="row">
                     <div className="col">
