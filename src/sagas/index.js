@@ -1,7 +1,7 @@
 import { takeEvery, takeLatest, take, put, spawn, debounce, retry } from 'redux-saga/effects';
-import { searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
-import {SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
-import { listItems, listHits, listCategories, itemsInCategory, addItems, searchItems } from '../api/index';
+import { getOrderInfoSuccess, getOrderInfoFailure, searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
+import {GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
+import { listItems, listHits, listCategories, itemsInCategory, addItems, searchItems, orderInfo } from '../api/index';
 
 function filterChangeSearchAction({type, payload}) {
     return type === CHANGE_SEARCH_FIELD && payload.searchChange.trim() !== ''
@@ -123,6 +123,28 @@ function* watchGetItemsSaga() {
     yield takeEvery(GET_ITEMS_REQUEST, handleGetItemsSaga);
 }
 
+
+function filterOrderInfoAction({ type, payload }) {
+    return type === GET_ORDERINFO_REQUEST && payload.idInfo !== ''
+}
+
+// watcher
+function* watchOrderInfoSaga() {
+    yield debounce(100, filterOrderInfoAction, handleOrderInfoSaga);
+}
+
+// worker
+function* handleOrderInfoSaga(action) {
+    try {
+        const retryCount = 3;
+        const retryDelay = 1 * 1000; // ms
+        const data = yield retry(retryCount, retryDelay, orderInfo, action.payload.idInfo);
+        yield put(getOrderInfoSuccess(data));
+    } catch (e) {
+        yield put(getOrderInfoFailure(e.message));
+    }
+}
+
 export default function* saga() {
     yield spawn(watchGetItemsSaga);
     yield spawn(watchGetHitsSaga);
@@ -131,4 +153,5 @@ export default function* saga() {
     yield spawn(watchGetAddItemsSaga);
     yield spawn(watchChangeSearchSaga);
     yield spawn(watchSearchItemsSaga);
+    yield spawn(watchOrderInfoSaga);
 }

@@ -26,7 +26,7 @@ export default function Catalog(props) {
                             <form className="catalog-search-form form-inline">
                                 <input className="form-control" placeholder="Поиск"  type="search" value={search} onChange={handleSearch} />
                             </form>
-                            <Items></Items>
+                            <Items history={props.history}></Items>
                         </section>
                     </div>
                 </div>

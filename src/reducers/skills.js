@@ -17,6 +17,9 @@ import {
   SEARCH_ITEMS_REQUEST,
   SEARCH_ITEMS_FAILURE,
   SEARCH_ITEMS_SUCCESS,
+  GET_ORDERINFO_REQUEST,
+  GET_ORDERINFO_FAILURE,
+  GET_ORDERINFO_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from '../actions/actionTypes'
 
@@ -27,10 +30,35 @@ const initialState = {
   loading: false,
   error: null,
   search: '',
+  orderInfo: {},
 };
 
 export default function skillsReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_ORDERINFO_REQUEST:
+      const { idInfo } = action.payload;
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_ORDERINFO_FAILURE:
+      const { errorInfo } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error:errorInfo,
+      };
+    case GET_ORDERINFO_SUCCESS:
+      const { orderInfo } = action.payload;
+      return {
+        ...state,
+        orderInfo,
+        loading: false,
+        error: null,
+      };
+
+
 
     case SEARCH_ITEMS_REQUEST:
       return {

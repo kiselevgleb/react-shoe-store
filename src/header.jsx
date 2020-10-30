@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from 'react';
 import mainLogo from './img/header-logo.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSearchField } from './actions/actionCreators';
-// import {history} from "history";
 
 export default function Header(props) {
     const [searchInput, setSearchInput] = useState("");
@@ -14,17 +13,25 @@ export default function Header(props) {
             if (searchInput !== "") {
                 setSearchBut(false);
                 props.history.push('/catalog.html');
-                console.log(searchInput)
                 dispatch(changeSearchField(searchInput));
-                
+
             } else {
                 setSearchBut(false);
             }
         } else {
             setSearchBut(true);
         }
-        console.log(777)
-        console.log(searchBut)
+    };
+    const handleSearchButEnter = (event) => {
+        if (event.key === 'Enter') {
+            if (searchBut) {
+                if (searchInput !== "") {
+                    setSearchBut(false);
+                    props.history.push('/catalog.html');
+                    dispatch(changeSearchField(searchInput));
+                }
+            }
+        }
     };
     const handleSearchInput = (evt) => {
         setSearchInput(evt.target.value);
@@ -56,7 +63,7 @@ export default function Header(props) {
                                 </ul>
                                 <div>
                                     <div className="header-controls-pics">
-                                        <div data-id="search-expander" className="header-controls-pic header-controls-search" to={`/contacts.html`} onClick={handleSearchBut}></div>
+                                        <div data-id="search-expander" className="header-controls-pic header-controls-search" to={`/contacts.html`} onClick={handleSearchBut} ></div>
                                         <div className="header-controls-pic header-controls-cart">
                                             <div className="header-controls-cart-full">1</div>
                                             <div className="header-controls-cart-menu"></div>
@@ -64,7 +71,7 @@ export default function Header(props) {
                                     </div>
                                     {searchBut &&
                                         <form data-id="search-form" className="header-controls-search-form form-inline">
-                                            <input className="form-control" placeholder="Поиск" type="search" onChange={handleSearchInput} />
+                                            <input className="form-control" placeholder="Поиск" type="search" onChange={handleSearchInput} onKeyPress={handleSearchButEnter}/>
                                         </form>}
                                 </div>
                             </div>

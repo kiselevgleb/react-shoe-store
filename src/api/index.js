@@ -6,6 +6,14 @@ export const listItems = async () => {
     return await response.json();
 }
 
+export const orderInfo = async (id) => {
+    const response = await fetch(`${process.env.REACT_APP_ITEMS_URL}/${id}`);
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+    return await response.json();
+}
+
 export const itemsInCategory = async (id) => {
     const response = await fetch(`${process.env.REACT_APP_ITEMS_URL}?categoryId=${id}`);
     if (!response.ok) {

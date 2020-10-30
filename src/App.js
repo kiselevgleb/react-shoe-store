@@ -6,6 +6,7 @@ import Error404 from './Error404';
 import Contacts from './Contacts';
 import Catalog from './Catalog';
 import About from './About';
+import ProductInfo from './ProductInfo';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 
@@ -19,6 +20,7 @@ function App(props) {
       <Route path='/catalog.html' component={Catalog} />
       <Route path='/about.html' component={About} />
       <Route path='/contacts.html' component={Contacts} />
+      <Route path='/catalog/:id.html' component={ProductInfo} />
       </Switch>
     </Router>
   );

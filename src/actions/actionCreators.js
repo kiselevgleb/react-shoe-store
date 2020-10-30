@@ -17,8 +17,27 @@ import {
   SEARCH_ITEMS_REQUEST,
   SEARCH_ITEMS_FAILURE,
   SEARCH_ITEMS_SUCCESS,
+  GET_ORDERINFO_REQUEST,
+  GET_ORDERINFO_FAILURE,
+  GET_ORDERINFO_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from './actionTypes';
+
+
+export const getOrderInfoRequest = (idInfo) => ({
+  type: GET_ORDERINFO_REQUEST,
+  payload: { idInfo },
+});
+
+export const getOrderInfoFailure = errorInfo => ({
+  type: GET_ORDERINFO_FAILURE,
+  payload: { errorInfo },
+});
+
+export const getOrderInfoSuccess = orderInfo => ({
+  type: GET_ORDERINFO_SUCCESS,
+  payload: { orderInfo },
+});
 
 export const searchItemsRequest = search => ({
   type: SEARCH_ITEMS_REQUEST,

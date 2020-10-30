@@ -1,32 +1,42 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsRequest } from './actions/actionCreators';
+import { getOrderInfoRequest, getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsRequest } from './actions/actionCreators';
 import { useSelector, useDispatch } from 'react-redux';
+import Loader from 'react-loader';
 
-export default function Items() {
-    const { items, categories, hits, loading, error, search } = useSelector(state => state.skills);
+export default function Items(props) {
+    const { items, categories, hits, loading, error, search, orderInfo } = useSelector(state => state.skills);
 
     const [cat, setCat] = useState("");
     const [coin, setCoin] = useState(6);
     const dispatch = useDispatch();
-    // let cat = "";
-    // let coin = 6;
+
     useEffect(() => {
         dispatch(getItemsRequest());
         dispatch(getCategoriesRequest());
     }, [dispatch])
 
     const getProducts = id => {
-        console.log(id)
         setCoin(6);
         setCat(id);
         dispatch(getItemsCatRequest(id));
     };
 
     const loadItems = () => {
-        console.log(cat)
         dispatch(getAddItemsRequest(coin, cat));
-        setCoin(coin+6);
+        setCoin(coin + 6);
     };
+    const getOrderRequest = id => {
+        dispatch(getOrderInfoRequest(id));
+        props.history.push(`/catalog/${id}.html`);
+    };
+
+    if (loading) {
+        return <Loader></Loader>;
+    }
+    if (error) {
+        return <p className="error">Произошла ошибка!</p>;
+    }
+
     return (
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">
@@ -46,7 +56,7 @@ export default function Items() {
                             <div className="card-body">
                                 <p className="card-text">{o.title}</p>
                                 <p className="card-text">{`${o.price} руб.`}</p>
-                                <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
+                                <a className="btn btn-outline-primary" onClick={() => getOrderRequest(o.id)}>Заказать</a>
                             </div>
                         </div>
                     </div>)}

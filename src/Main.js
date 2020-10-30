@@ -15,10 +15,10 @@ export default function Main(props) {
                     <div className="col">
                         <Banner></Banner>
 
-            <Hit></Hit>
+            <Hit history={props.history}></Hit>
             <section className="catalog">
                 <h2 className="text-center">Каталог</h2>
-                <Items></Items>
+                <Items history={props.history}></Items>
             </section>
             </div>
                 </div>
