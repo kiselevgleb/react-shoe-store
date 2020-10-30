@@ -7,6 +7,8 @@ import Loader from 'react-loader';
 
 export default function Catalog(props) {
     const { items, categories, hits, loading, error, search, orderInfo } = useSelector(state => state.skills);
+    const [cartBut, setCartBut] = useState(false);
+    // const [setCoin, setSetCoin] = useState(1);
 
     if (loading) {
         return <Loader></Loader>;
@@ -14,6 +16,33 @@ export default function Catalog(props) {
     if (error) {
         return <p className="error">Произошла ошибка!</p>;
     }
+
+    const handleButSize = (event) => {
+        console.log(event.target.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1]);
+
+        if (cartBut) {
+            setCartBut(false);
+            event.target.className = 'catalog-item-size';
+            event.target.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerText = 1;
+        } else {
+            setCartBut(true);
+            event.target.className = 'catalog-item-size selected';
+        }
+    };
+    const handleButCoin = (event) => {
+        console.log(event.target.previousSibling);
+        if (event.target.previousSibling !== null) {
+            if (Number(event.target.previousSibling.innerText) < 10) {
+                event.target.previousSibling.innerText = Number(event.target.previousSibling.innerText) + 1;
+            }
+        }
+        else {
+            if (Number(event.target.nextSibling.innerText) > 1) {
+                event.target.nextSibling.innerText = Number(event.target.nextSibling.innerText) - 1;
+            }
+        }
+    };
+
     return (
         <Fragment>
             <Header history={props.history}></Header>
@@ -59,15 +88,15 @@ export default function Catalog(props) {
                                     <div class="text-center">
                                         <p>Размеры в наличии:
                                         {orderInfo.sizes.map(o =>
-                                            <span class="catalog-item-size">{o.size}</span>)}</p>
-                                        <p>Количество: <span class="btn-group btn-group-sm pl-2">
-                                            <button class="btn btn-secondary">-</button>
+                                            o.avalible && <span class="catalog-item-size" onClick={handleButSize}>{o.size}</span>)}</p>
+                                        {orderInfo.sizes.length!==0 &&<p>Количество: <span class="btn-group btn-group-sm pl-2">
+                                            {cartBut ? <button class="btn btn-secondary" onClick={handleButCoin}>-</button> : <button class="btn btn-secondary">-</button>}
                                             <span class="btn btn-outline-primary">1</span>
-                                            <button class="btn btn-secondary">+</button>
+                                            {cartBut ? <button class="btn btn-secondary" onClick={handleButCoin}>+</button> : <button class="btn btn-secondary">+</button>}
                                         </span>
-                                        </p>
+                                        </p>}
                                     </div>
-                                    <button class="btn btn-danger btn-block btn-lg">В корзину</button>
+                                    {cartBut && <button class="btn btn-danger btn-block btn-lg">В корзину</button>}
                                 </div>
                             </div>
                         </section>
