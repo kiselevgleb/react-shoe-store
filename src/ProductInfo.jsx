@@ -5,10 +5,11 @@ import Banner from './banner';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
 
-export default function Catalog(props) {
-    const { items, categories, hits, loading, error, search, orderInfo } = useSelector(state => state.skills);
+export default function ProductInfo(props) {
+    const { items, categories, hits, loading, error, search, orderInfo, cart } = useSelector(state => state.skills);
     const [cartBut, setCartBut] = useState(false);
-    // const [setCoin, setSetCoin] = useState(1);
+    const [orderSize, setOrderSize] = useState();
+    const [orderCoin, setOrderCoin] = useState(1);
 
     if (loading) {
         return <Loader></Loader>;
@@ -26,6 +27,7 @@ export default function Catalog(props) {
             event.target.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1].innerText = 1;
         } else {
             setCartBut(true);
+            setOrderSize(event.target.innerText);
             event.target.className = 'catalog-item-size selected';
         }
     };
@@ -34,15 +36,35 @@ export default function Catalog(props) {
         if (event.target.previousSibling !== null) {
             if (Number(event.target.previousSibling.innerText) < 10) {
                 event.target.previousSibling.innerText = Number(event.target.previousSibling.innerText) + 1;
+                setOrderCoin(event.target.previousSibling.innerText);
             }
         }
         else {
             if (Number(event.target.nextSibling.innerText) > 1) {
                 event.target.nextSibling.innerText = Number(event.target.nextSibling.innerText) - 1;
+                setOrderCoin(event.target.nextSibling.innerText);
             }
         }
     };
-
+    const handleCart = (event) => {
+        let masData = localStorage.getItem('orderInfo');
+        let mas = [];
+        if (masData == '[]' || masData == null) {
+            localStorage.setItem('orderInfo', JSON.stringify([{ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id }]));
+        }
+        else {
+            mas = JSON.parse(masData);
+            mas.map((o) => {
+                if (o.id == orderInfo.id && o.size == orderSize) {
+                    o.coin += 1;
+                } else {
+                    mas.push({ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id });
+                }
+            });
+            localStorage.setItem('orderInfo', JSON.stringify(mas));
+        }
+        props.history.push(`/cart.html`);
+    };
     return (
         <Fragment>
             <Header history={props.history}></Header>
@@ -89,14 +111,14 @@ export default function Catalog(props) {
                                         <p>Размеры в наличии:
                                         {orderInfo.sizes.map(o =>
                                             o.avalible && <span class="catalog-item-size" onClick={handleButSize}>{o.size}</span>)}</p>
-                                        {orderInfo.sizes.length!==0 &&<p>Количество: <span class="btn-group btn-group-sm pl-2">
+                                        {orderInfo.sizes.length !== 0 && <p>Количество: <span class="btn-group btn-group-sm pl-2">
                                             {cartBut ? <button class="btn btn-secondary" onClick={handleButCoin}>-</button> : <button class="btn btn-secondary">-</button>}
                                             <span class="btn btn-outline-primary">1</span>
                                             {cartBut ? <button class="btn btn-secondary" onClick={handleButCoin}>+</button> : <button class="btn btn-secondary">+</button>}
                                         </span>
                                         </p>}
                                     </div>
-                                    {cartBut && <button class="btn btn-danger btn-block btn-lg">В корзину</button>}
+                                    {cartBut && <button class="btn btn-danger btn-block btn-lg" onClick={handleCart}>В корзину</button>}
                                 </div>
                             </div>
                         </section>

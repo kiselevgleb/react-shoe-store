@@ -1,3 +1,14 @@
+export const postCart =  () => {
+    console.log(11)
+    const response = localStorage.getItem('orderInfo');
+    console.log(response)
+
+    // if (!response.ok) {
+    //     throw new Error(response.statusText);
+    // }
+    return  response;
+}
+
 export const listItems = async () => {
     const response = await fetch(`${process.env.REACT_APP_ITEMS_URL}`);
     if (!response.ok) {

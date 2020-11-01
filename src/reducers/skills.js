@@ -20,6 +20,9 @@ import {
   GET_ORDERINFO_REQUEST,
   GET_ORDERINFO_FAILURE,
   GET_ORDERINFO_SUCCESS,
+  POST_CART_REQUEST,
+  POST_CART_FAILURE,
+  POST_CART_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from '../actions/actionTypes'
 
@@ -31,10 +34,35 @@ const initialState = {
   error: null,
   search: '',
   orderInfo: {},
+  cart:[],
 };
 
 export default function skillsReducer(state = initialState, action) {
   switch (action.type) {
+
+    case POST_CART_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case POST_CART_FAILURE:
+      const {errorCart} = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error:errorCart,
+      };
+    case POST_CART_SUCCESS:
+      const {cart} = action.payload;
+      return {
+        ...state,
+        cart: cart,
+        loading: false,
+        error: null,
+      };
+
+
     case GET_ORDERINFO_REQUEST:
       const { idInfo } = action.payload;
       return {
@@ -57,8 +85,6 @@ export default function skillsReducer(state = initialState, action) {
         loading: false,
         error: null,
       };
-
-
 
     case SEARCH_ITEMS_REQUEST:
       return {

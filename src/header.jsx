@@ -8,6 +8,13 @@ export default function Header(props) {
     const [searchBut, setSearchBut] = useState(false);
     const dispatch = useDispatch();
 
+    let cartInfo = localStorage.getItem('orderInfo')
+    let cionInCart = 0;
+    if (cartInfo != null) {
+        cionInCart = JSON.parse(cartInfo).length
+    }
+
+
     const handleSearchBut = () => {
         if (searchBut) {
             if (searchInput !== "") {
@@ -36,6 +43,9 @@ export default function Header(props) {
     const handleSearchInput = (evt) => {
         setSearchInput(evt.target.value);
     };
+    const handleCart = () => {
+        props.history.push('/cart.html');
+    };
 
     return (
         <Fragment>
@@ -63,15 +73,14 @@ export default function Header(props) {
                                 </ul>
                                 <div>
                                     <div className="header-controls-pics">
-                                        <div data-id="search-expander" className="header-controls-pic header-controls-search" to={`/contacts.html`} onClick={handleSearchBut} ></div>
-                                        <div className="header-controls-pic header-controls-cart">
-                                            <div className="header-controls-cart-full">1</div>
-                                            <div className="header-controls-cart-menu"></div>
+                                        <div data-id="search-expander" className="header-controls-pic header-controls-search" onClick={handleSearchBut} ></div>
+                                        <div className="header-controls-pic header-controls-cart" onClick={handleCart} >
+                                            {cionInCart !== 0 ? <div><div className="header-controls-cart-full">{cionInCart}</div> <div className="header-controls-cart-menu"></div></div> : <div></div>}
                                         </div>
                                     </div>
                                     {searchBut &&
                                         <form data-id="search-form" className="header-controls-search-form form-inline">
-                                            <input className="form-control" placeholder="Поиск" type="search" onChange={handleSearchInput} onKeyPress={handleSearchButEnter}/>
+                                            <input className="form-control" placeholder="Поиск" type="search" onChange={handleSearchInput} onKeyPress={handleSearchButEnter} />
                                         </form>}
                                 </div>
                             </div>

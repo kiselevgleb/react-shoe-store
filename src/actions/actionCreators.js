@@ -20,9 +20,26 @@ import {
   GET_ORDERINFO_REQUEST,
   GET_ORDERINFO_FAILURE,
   GET_ORDERINFO_SUCCESS,
+  POST_CART_REQUEST,
+  POST_CART_FAILURE,
+  POST_CART_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from './actionTypes';
 
+export const postCartRequest = () => ({
+  type: POST_CART_REQUEST,
+  // payload: { idInfo },
+});
+
+export const postCartFailure = errorCart => ({
+  type: POST_CART_FAILURE,
+  payload: { errorCart },
+});
+
+export const postCartSuccess = cart => ({
+  type: POST_CART_SUCCESS,
+  payload: { cart },
+});
 
 export const getOrderInfoRequest = (idInfo) => ({
   type: GET_ORDERINFO_REQUEST,
