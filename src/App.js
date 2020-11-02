@@ -16,13 +16,14 @@ function App(props) {
   return (
     <Router history={customHistory}>
       <Switch>
-      <Route path='/' exact component={Main} />
-      <Route path='/404' exact component={Error404} />
-      <Route path='/catalog.html' component={Catalog} />
-      <Route path='/about.html' component={About} />
-      <Route path='/contacts.html' component={Contacts} />
-      <Route path='/catalog/:id.html' component={ProductInfo} />
-      <Route path='/cart.html' component={Cart} />
+        <Route path='/' exact component={Main} />
+        <Route path='/404' exact component={Error404} />
+        <Route path='/catalog.html' component={Catalog} />
+        <Route path='/about.html' component={About} />
+        <Route path='/contacts.html' component={Contacts} />
+        <Route path='/catalog/:id.html' component={ProductInfo} />
+        <Route path='/cart.html' component={Cart} />
+        <Route path='*' exact component={Error404} />
       </Switch>
     </Router>
   );

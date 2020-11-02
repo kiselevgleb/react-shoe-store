@@ -34,34 +34,34 @@ const initialState = {
   error: null,
   search: '',
   orderInfo: {},
-  cart:[],
+  cart: false,
 };
 
 export default function skillsReducer(state = initialState, action) {
   switch (action.type) {
 
     case POST_CART_REQUEST:
+      const { data } = action.payload;
       return {
         ...state,
         loading: true,
         error: null,
       };
     case POST_CART_FAILURE:
-      const {errorCart} = action.payload;
+      const { errorCart } = action.payload;
       return {
         ...state,
         loading: false,
-        error:errorCart,
+        error: errorCart,
       };
     case POST_CART_SUCCESS:
-      const {cart} = action.payload;
+      const { cart } = action.payload;
       return {
         ...state,
         cart: cart,
         loading: false,
         error: null,
       };
-
 
     case GET_ORDERINFO_REQUEST:
       const { idInfo } = action.payload;
@@ -75,7 +75,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error:errorInfo,
+        error: errorInfo,
       };
     case GET_ORDERINFO_SUCCESS:
       const { orderInfo } = action.payload;
@@ -93,38 +93,39 @@ export default function skillsReducer(state = initialState, action) {
         error: null,
       };
     case SEARCH_ITEMS_FAILURE:
-      const {errorSearch} = action.payload;
+      const { errorSearch } = action.payload;
       return {
         ...state,
         loading: false,
-        error:errorSearch,
+        error: errorSearch,
       };
     case SEARCH_ITEMS_SUCCESS:
-      const {itemsSearch} = action.payload;
+      const { itemsSearch } = action.payload;
       return {
         ...state,
-        items:itemsSearch,
+        items: itemsSearch,
         loading: false,
         error: null,
       };
     case CHANGE_SEARCH_FIELD:
-      const {searchChange} = action.payload;
+      const { searchChange } = action.payload;
       const hasQuery = searchChange.trim() == '';
-      if(hasQuery){
-      return {
-        ...state,
-        search:searchChange
-      };}
-      else{
+      if (hasQuery) {
         return {
           ...state,
-          search:searchChange
+          search: searchChange
+        };
+      }
+      else {
+        return {
+          ...state,
+          search: searchChange
         };
       };
 
     case GET_ADDITEMS_REQUEST:
       const { coin, cat } = action.payload;
-      
+
       return {
         ...state,
         loading: true,
@@ -135,7 +136,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error:errorAddItems,
+        error: errorAddItems,
       };
     case GET_ADDITEMS_SUCCESS:
       const { additems } = action.payload;
@@ -158,7 +159,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error:errorItemsCat,
+        error: errorItemsCat,
       };
     case GET_ITEMSCAT_SUCCESS:
       const { itemsCat } = action.payload;
@@ -201,7 +202,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error:errorCat,
+        error: errorCat,
       };
     case GET_CATEGORIES_SUCCESS:
       const { categories } = action.payload;
@@ -223,7 +224,7 @@ export default function skillsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error:errorHit,
+        error: errorHit,
       };
     case GET_HIT_SUCCESS:
       const { hits } = action.payload;

@@ -4,16 +4,11 @@ import Header from './header';
 import Banner from './banner';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
-import { getOrderInfoRequest, getCartRequest } from './actions/actionCreators';
-
+import { getOrderInfoRequest, postCartRequest } from './actions/actionCreators';
 export default function Cart(props) {
     const { items, categories, hits, loading, error, search, cart } = useSelector(state => state.skills);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCartRequest());
-    }, [dispatch])
-
+    const [modal, setModal] = useState(false);
 
     if (loading) {
         return <Loader></Loader>;
@@ -25,6 +20,28 @@ export default function Cart(props) {
         'maxWidth': '30rem',
         'margin': '0 auto'
     };
+
+    let modalWin = {
+        'z-index': '9999',
+        'position': 'absolute',
+        'top': '50%',
+        'left': '50%',
+        'min-width': '250px',
+        'min-height': '100px',
+        'padding': '15px',
+        'border-radius': '10px',
+        'transform': 'translate(-50%, -50%)',
+        'background': '#fff',
+    };
+    let bgModal = {
+        'z-index': '9998',
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+        'top': '0',
+        'left': '0',
+        'background': 'rgba(0, 0, 0, 0.3)',
+    }
     let num = 0;
     let total = 0;
     let cartJSON = JSON.parse(localStorage.getItem('orderInfo'));
@@ -44,6 +61,20 @@ export default function Cart(props) {
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
         props.history.push(`/catalog/${id}.html`);
+    };
+
+    const handlePostOrder = evt => {
+        evt.preventDefault();
+        let items = cartJSON.map(o => ({ "id": o.id, "price": o.price, "count": o.coin }))
+        let data = JSON.stringify({ "owner": { "phone": evt.target.phone.value, "address": evt.target.address.value, }, "items": items })
+        console.log(data);
+        dispatch(postCartRequest(data));
+        setModal(true);
+        localStorage.setItem('orderInfo', JSON.stringify([]));
+        console.log(cart);
+    };
+    const closeModal = evt => {
+        setModal(false);
     };
     return (
         <Fragment>
@@ -89,14 +120,14 @@ export default function Cart(props) {
                         <section className="order">
                             <h2 className="text-center">Оформить заказ</h2>
                             <div className="card" style={divStyle}>
-                                <form className="card-body">
+                                <form className="card-body" onSubmit={handlePostOrder}>
                                     <div className="form-group">
                                         <label htmlFor="phone">Телефон</label>
-                                        <input className="form-control" id="phone" placeholder="Ваш телефон" />
+                                        <input className="form-control" id="phone" placeholder="Ваш телефон" name="phone" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="address">Адрес доставки</label>
-                                        <input className="form-control" id="address" placeholder="Адрес доставки" />
+                                        <input className="form-control" id="address" placeholder="Адрес доставки" name="address" />
                                     </div>
                                     <div className="form-group form-check">
                                         <input type="checkbox" className="form-check-input" id="agreement" />
@@ -110,6 +141,10 @@ export default function Cart(props) {
                 </div>
             </main>
             <Footer></Footer>
+            {modal ? <>
+                <div className="modalWin" style={modalWin}>
+                    <h3>Заказ отправлен!</h3></div>
+                <div className="bg" style={bgModal} onClick={closeModal} /></> : <p></p>}
         </Fragment>
     )
 }

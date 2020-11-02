@@ -7,13 +7,11 @@ export default function Header(props) {
     const [searchInput, setSearchInput] = useState("");
     const [searchBut, setSearchBut] = useState(false);
     const dispatch = useDispatch();
-
-    let cartInfo = localStorage.getItem('orderInfo')
+    const cartInfo = localStorage.getItem('orderInfo')
     let cionInCart = 0;
     if (cartInfo != null) {
         cionInCart = JSON.parse(cartInfo).length
     }
-
 
     const handleSearchBut = () => {
         if (searchBut) {

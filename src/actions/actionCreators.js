@@ -26,9 +26,9 @@ import {
   CHANGE_SEARCH_FIELD,
 } from './actionTypes';
 
-export const postCartRequest = () => ({
+export const postCartRequest = (data) => ({
   type: POST_CART_REQUEST,
-  // payload: { idInfo },
+  payload: { data },
 });
 
 export const postCartFailure = errorCart => ({
@@ -58,22 +58,22 @@ export const getOrderInfoSuccess = orderInfo => ({
 
 export const searchItemsRequest = search => ({
   type: SEARCH_ITEMS_REQUEST,
-  payload: {search},
+  payload: { search },
 });
 
 export const searchItemsFailure = errorSearch => ({
   type: SEARCH_ITEMS_FAILURE,
-  payload: {errorSearch},
+  payload: { errorSearch },
 });
 
 export const searchItemsSuccess = itemsSearch => ({
   type: SEARCH_ITEMS_SUCCESS,
-  payload: {itemsSearch},
+  payload: { itemsSearch },
 });
 
 export const changeSearchField = searchChange => ({
   type: CHANGE_SEARCH_FIELD,
-  payload: {searchChange},
+  payload: { searchChange },
 });
 
 

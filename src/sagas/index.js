@@ -1,14 +1,14 @@
 import { takeEvery, takeLatest, take, put, spawn, debounce, retry } from 'redux-saga/effects';
 import { postCartSuccess, postCartFailure, getOrderInfoSuccess, getOrderInfoFailure, searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
-import {POST_CART_REQUEST, GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
+import { POST_CART_REQUEST, GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
 import { postCart, listItems, listHits, listCategories, itemsInCategory, addItems, searchItems, orderInfo } from '../api/index';
 
-function filterChangeSearchAction({type, payload}) {
+function filterChangeSearchAction({ type, payload }) {
     return type === CHANGE_SEARCH_FIELD && payload.searchChange.trim() !== ''
 }
 
 // worker
-function *handleChangeSearchSaga(action) {
+function* handleChangeSearchSaga(action) {
     yield put(searchItemsRequest(action.payload.searchChange));
 }
 
@@ -123,7 +123,6 @@ function* watchGetItemsSaga() {
     yield takeEvery(GET_ITEMS_REQUEST, handleGetItemsSaga);
 }
 
-
 function filterOrderInfoAction({ type, payload }) {
     return type === GET_ORDERINFO_REQUEST && payload.idInfo !== ''
 }
@@ -145,29 +144,8 @@ function* handleOrderInfoSaga(action) {
     }
 }
 
-
-// function* handleGetCartSaga(action) {
-    
-//     try {
-//         const retryCount = 3;
-//         const retryDelay = 1 * 1000; // ms
-//         const data = yield retry(retryCount, retryDelay, getCart);
-//         yield put(getCartSuccess(data));
-
-//             // yield put(getCartSuccess(getCart));
-
-//     } catch (e) {
-//         yield put(getCartFailure(e.message));
-//     }
-// }
-
-// // watcher
-// function* watchGetCartSaga() {
-//     yield takeEvery(GET_CART_REQUEST, handleGetCartSaga);
-// }
-
 function filterPostCartAction({ type, payload }) {
-    return type === POST_CART_REQUEST && payload.cart !== ''
+    return type === POST_CART_REQUEST && payload.data !== ''
 }
 
 // watcher
@@ -180,7 +158,7 @@ function* handlePostCartSaga(action) {
     try {
         const retryCount = 3;
         const retryDelay = 1 * 1000; // ms
-        const data = yield retry(retryCount, retryDelay, postCart, action.cart);
+        const data = yield retry(retryCount, retryDelay, postCart, action.payload.data);
         yield put(postCartSuccess(data));
     } catch (e) {
         yield put(postCartFailure(e.message));

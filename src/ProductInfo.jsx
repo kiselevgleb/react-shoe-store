@@ -76,7 +76,7 @@ export default function ProductInfo(props) {
                             <h2 class="text-center">{orderInfo.title}</h2>
                             <div class="row">
                                 <div class="col-5">
-                                    <img src={orderInfo.images[0]} class="img-fluid" alt="" />
+                                    {orderInfo.images[0] != undefined ? <img src={orderInfo.images[0]} class="img-fluid" alt="" /> : <img />}
                                 </div>
                                 <div class="col-7">
                                     <table class="table table-bordered">
