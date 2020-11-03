@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 // import mainLogo from './img/header-logo.png';
 
-export default function Footer() {
+export default function Footer(props) {
     const handleCatalog = () => {
         props.history.push('/react-shoe-store/build/catalog.html');
     };

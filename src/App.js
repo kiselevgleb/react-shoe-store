@@ -22,8 +22,8 @@ function App(props) {
         <Route path='/react-shoe-store/build/about.html'  component={About} />
         <Route path='/react-shoe-store/build/contacts.html'  component={Contacts} />
         <Route path='/react-shoe-store/build/cart.html'  component={Cart} />
-        <Route path='/react-shoe-store/build/'  component={Main} />
-        <Route path='*' component={Error404} />
+        <Route exact path='/react-shoe-store/build/'  component={Main} />
+        <Route path='/react-shoe-store/build/' component={Error404} />
       </Switch>
     </Router>
   );
