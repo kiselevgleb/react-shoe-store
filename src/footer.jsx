@@ -20,9 +20,9 @@ export default function Footer() {
                         <section>
                             <h5>Информация</h5>
                             <ul className="nav flex-column">
-                                <li className="nav-item"><a onClick={handleAbout} className="nav-link">О магазине</a></li>
-                                <li className="nav-item"><a onClick={handleCatalog} className="nav-link">Каталог</a></li>
-                                <li className="nav-item"><a onClick={handleContacts} className="nav-link">Контакты</a></li>
+                                <li className="nav-item"><a href="/react-shoe-store/build/about.html" className="nav-link">О магазине</a></li>
+                                <li className="nav-item"><a href="/react-shoe-store/build/catalog.html" className="nav-link">Каталог</a></li>
+                                <li className="nav-item"><a href="/react-shoe-store/build/contacts.html" className="nav-link">Контакты</a></li>
                             </ul>
                         </section>
                     </div>
