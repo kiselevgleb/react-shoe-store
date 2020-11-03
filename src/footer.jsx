@@ -20,9 +20,9 @@ export default function Footer() {
                         <section>
                             <h5>Информация</h5>
                             <ul className="nav flex-column">
-                                <li className="nav-item" onClick={handleAbout}><a  className="nav-link">О магазине</a></li>
-                                <li className="nav-item" onClick={handleCatalog}><a  className="nav-link">Каталог</a></li>
-                                <li className="nav-item" onClick={handleContacts}><a  className="nav-link">Контакты</a></li>
+                                <li className="nav-item"><a onClick={handleAbout} className="nav-link">О магазине</a></li>
+                                <li className="nav-item"><a onClick={handleCatalog} className="nav-link">Каталог</a></li>
+                                <li className="nav-item"><a onClick={handleContacts} className="nav-link">Контакты</a></li>
                             </ul>
                         </section>
                     </div>
