@@ -57,7 +57,7 @@ export default function Header(props) {
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item active">
-                                        <a className="nav-link" href="/react-shoe-store/">Главная1</a>
+                                        <a className="nav-link" href="/react-shoe-store/">Главная</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/react-shoe-store/catalog.html">Каталог</a>
