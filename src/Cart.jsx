@@ -56,11 +56,11 @@ export default function Cart(props) {
             localStorage.removeItem('orderInfo');
         }
         localStorage.setItem('orderInfo', JSON.stringify(cartJSONFiltered));
-        props.history.push(`/cart.html`);
+        props.history.push(`/react-shoe-store/cart.html`);
     };
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
-        props.history.push(`/catalog/${id}.html`);
+        props.history.push(`/react-shoe-store/catalog/${id}.html`);
     };
 
     const handlePostOrder = evt => {

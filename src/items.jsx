@@ -27,7 +27,7 @@ export default function Items(props) {
     };
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
-        props.history.push(`/catalog/${id}.html`);
+        props.history.push(`/react-shoe-store/catalog/${id}.html`);
     };
 
     if (loading) {
