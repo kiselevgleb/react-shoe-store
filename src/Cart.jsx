@@ -5,6 +5,7 @@ import Banner from './banner';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
 import { getOrderInfoRequest, postCartRequest } from './actions/actionCreators';
+import { NavLink } from 'react-router-dom'
 export default function Cart(props) {
     const { loading, error, cart } = useSelector(state => state.skills);
     const dispatch = useDispatch();
@@ -101,7 +102,11 @@ export default function Cart(props) {
                                     {cartJSON.map(o =>
                                         <tr>
                                             <th scope="row">{num += 1}</th>
-                                            <td><a onClick={() => getOrderRequest(o.id)}>{o.title}</a></td>
+                                            <td>
+                                                {/* <a onClick={() => getOrderRequest(o.id)}>{o.title}</a> */}
+                                                <NavLink onClick={() => getOrderRequest(o.id)} >{o.title}</NavLink>
+                                                </td>
+
                                             <td>{o.size}</td>
                                             <td>{o.coin}</td>
                                             <td>{`${o.price} руб.`}</td>
