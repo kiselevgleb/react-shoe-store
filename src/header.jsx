@@ -71,7 +71,7 @@ export default function Header(props) {
                                         <a className="nav-link" href="/react-shoe-store/">Главная</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={handleCatalog}>Каталог</a>
+                                        <a className="nav-link" onClick={handleCatalog}>Каталог0</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" onClick={handleAbout}>О магазине</a>
