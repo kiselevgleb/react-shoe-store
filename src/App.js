@@ -17,13 +17,13 @@ function App(props) {
     <Router history={customHistory}>
       <Switch>
 
-        <Route path='/react-shoe-store/404' exact component={Error404} />
-        <Route path='/react-shoe-store/catalog.html' exact component={Catalog} />
-        <Route path='/react-shoe-store/about.html' exact component={About} />
-        <Route path='/react-shoe-store/contacts.html' exact component={Contacts} />
-        <Route path='/react-shoe-store/catalog/:id.html' exact component={ProductInfo} />
-        <Route path='/react-shoe-store/cart.html' exact component={Cart} />
-        <Route path='/react-shoe-store/' exact component={Main} />
+        <Route path='/react-shoe-store/build/404' exact component={Error404} />
+        <Route path='/react-shoe-store/build/catalog.html' exact component={Catalog} />
+        <Route path='/react-shoe-store/build/about.html' exact component={About} />
+        <Route path='/react-shoe-store/build/contacts.html' exact component={Contacts} />
+        <Route path='/react-shoe-store/build/catalog/:id.html' exact component={ProductInfo} />
+        <Route path='/react-shoe-store/build/cart.html' exact component={Cart} />
+        <Route path='/react-shoe-store/build/' exact component={Main} />
         <Route path='*' exact component={Error404} />
       </Switch>
     </Router>

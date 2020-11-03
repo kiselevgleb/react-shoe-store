@@ -3,13 +3,13 @@ import React, { Fragment } from 'react';
 
 export default function Footer() {
     const handleCatalog = () => {
-        props.history.push('/react-shoe-store/catalog.html');
+        props.history.push('/react-shoe-store/build/catalog.html');
     };
     const handleAbout = () => {
-        props.history.push('/react-shoe-store/about.html');
+        props.history.push('/react-shoe-store/build/about.html');
     };
     const handleContacts = () => {
-        props.history.push('/react-shoe-store/contacts.html');
+        props.history.push('/react-shoe-store/build/contacts.html');
     };
 
     return (

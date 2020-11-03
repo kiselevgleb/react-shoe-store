@@ -63,7 +63,7 @@ export default function ProductInfo(props) {
             });
             localStorage.setItem('orderInfo', JSON.stringify(mas));
         }
-        props.history.push(`/react-shoe-store/cart.html`);
+        props.history.push(`/react-shoe-store/build/cart.html`);
     };
     return (
         <Fragment>

@@ -42,16 +42,16 @@ export default function Header(props) {
         setSearchInput(evt.target.value);
     };
     const handleCart = () => {
-        props.history.push('/react-shoe-store/cart.html');
+        props.history.push('/react-shoe-store/build/cart.html');
     };
     const handleCatalog = () => {
-        props.history.push('/react-shoe-store/catalog.html');
+        props.history.push('/react-shoe-store/build/catalog.html');
     };
     const handleAbout = () => {
-        props.history.push('/react-shoe-store/about.html');
+        props.history.push('/react-shoe-store/build/about.html');
     };
     const handleContacts = () => {
-        props.history.push('/react-shoe-store/contacts.html');
+        props.history.push('/react-shoe-store/build/contacts.html');
     };
 
 
@@ -62,16 +62,16 @@ export default function Header(props) {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                            <a className="navbar-brand" href="/react-shoe-store/">
+                            <a className="navbar-brand" href="/react-shoe-store/build/">
                                 <img src={mainLogo} alt="Bosa Noga" />
                             </a>
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item active">
-                                        <a className="nav-link" href="/react-shoe-store/">Главная</a>
+                                        <a className="nav-link" href="/react-shoe-store/build/">Главная</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={handleCatalog}>Каталог0</a>
+                                        <a className="nav-link" onClick={handleCatalog}>Каталог</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" onClick={handleAbout}>О магазине</a>
