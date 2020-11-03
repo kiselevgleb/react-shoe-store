@@ -17,7 +17,7 @@ export default function Header(props) {
         if (searchBut) {
             if (searchInput !== "") {
                 setSearchBut(false);
-                props.history.push('/catalog.html');
+                props.history.push('/react-shoe-store/catalog.html');
                 dispatch(changeSearchField(searchInput));
 
             } else {
@@ -32,7 +32,7 @@ export default function Header(props) {
             if (searchBut) {
                 if (searchInput !== "") {
                     setSearchBut(false);
-                    props.history.push('/catalog.html');
+                    props.history.push('/react-shoe-store/catalog.html');
                     dispatch(changeSearchField(searchInput));
                 }
             }
@@ -42,7 +42,7 @@ export default function Header(props) {
         setSearchInput(evt.target.value);
     };
     const handleCart = () => {
-        props.history.push('/cart.html');
+        props.history.push('/react-shoe-store/cart.html');
     };
 
     return (
@@ -57,7 +57,7 @@ export default function Header(props) {
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item active">
-                                        <a className="nav-link" href="/react-shoe-store/">Главная</a>
+                                        <a className="nav-link" href="/react-shoe-store/">Главная1</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/react-shoe-store/catalog.html">Каталог</a>
