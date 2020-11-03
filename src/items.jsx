@@ -41,11 +41,11 @@ export default function Items(props) {
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">
                 <li className="nav-item">
-                    <button className="nav-link active" onClick={() => dispatch(getItemsRequest())}>Все</button>
+                    <a className="nav-link active" onClick={() => dispatch(getItemsRequest())}>Все</a>
                 </li>
                 {categories.map(o =>
                     <li className="nav-item">
-                        <button className="nav-link active" onClick={() => getProducts(o.id)}>{o.title}</button>
+                        <a className="nav-link active" onClick={() => getProducts(o.id)}>{o.title}</a>
                     </li>)}
             </ul>
             <div class="row">

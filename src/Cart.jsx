@@ -102,7 +102,7 @@ export default function Cart(props) {
                                         <tr>
                                             <th scope="row">{num += 1}</th>
                                             <td>
-                                                <button onClick={() => getOrderRequest(o.id)}>{o.title}</button>
+                                                <a onClick={() => getOrderRequest(o.id)}>{o.title}</a>
                                                 </td>
 
                                             <td>{o.size}</td>
