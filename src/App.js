@@ -16,13 +16,14 @@ function App(props) {
   return (
     <Router history={customHistory}>
       <Switch>
-        <Route path='/react-shoe-store/' exact component={Main} />
+
         <Route path='/react-shoe-store/404' exact component={Error404} />
         <Route path='/react-shoe-store/catalog.html' exact component={Catalog} />
         <Route path='/react-shoe-store/about.html' exact component={About} />
         <Route path='/react-shoe-store/contacts.html' exact component={Contacts} />
         <Route path='/react-shoe-store/catalog/:id.html' exact component={ProductInfo} />
         <Route path='/react-shoe-store/cart.html' exact component={Cart} />
+        <Route path='/react-shoe-store/' exact component={Main} />
         <Route path='*' exact component={Error404} />
       </Switch>
     </Router>
