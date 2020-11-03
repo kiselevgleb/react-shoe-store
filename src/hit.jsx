@@ -40,7 +40,7 @@ export default function Hit(props) {
                                 <div className="card-body">
                                     <p className="card-text">{o.title}</p>
                                     <p className="card-text">{`${o.price} руб.`}</p>
-                                    <a className="btn btn-outline-primary" onClick={() => getOrderRequest(o.id)}>Заказать</a>
+                                    <button className="btn btn-outline-primary" onClick={() => getOrderRequest(o.id)}>Заказать</button>
 
                                 </div>
                             </div>

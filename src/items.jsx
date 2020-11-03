@@ -41,11 +41,11 @@ export default function Items(props) {
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">
                 <li className="nav-item">
-                    <a className="nav-link active" href="#" onClick={() => dispatch(getItemsRequest())}>Все</a>
+                    <button className="nav-link active" onClick={() => dispatch(getItemsRequest())}>Все</button>
                 </li>
                 {categories.map(o =>
                     <li className="nav-item">
-                        <a className="nav-link active" href="#" onClick={() => getProducts(o.id)}>{o.title}</a>
+                        <button className="nav-link active" onClick={() => getProducts(o.id)}>{o.title}</button>
                     </li>)}
             </ul>
             <div class="row">
@@ -56,7 +56,7 @@ export default function Items(props) {
                             <div className="card-body">
                                 <p className="card-text">{o.title}</p>
                                 <p className="card-text">{`${o.price} руб.`}</p>
-                                <a className="btn btn-outline-primary" onClick={() => getOrderRequest(o.id)}>Заказать</a>
+                                <button className="btn btn-outline-primary" onClick={() => getOrderRequest(o.id)}>Заказать</button>
                             </div>
                         </div>
                     </div>)}

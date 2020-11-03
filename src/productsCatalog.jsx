@@ -1,18 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
 export default function ProductsCatalog() {
-    const [categories, setcCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
         fetch(`${process.env.REACT_APP_CATEGORIES_URL}`)
             .then(response => response.json()
             )
             .then(rates => {
-                setcCategories(rates);
+                setCategories(rates);
             });
-    }
-    )
+    },[categories] )
 
-    if (setcCategories === undefined || setcCategories.length === 0) {
+    if (setCategories === undefined || setCategories.length === 0) {
         return null;
     }
 
@@ -21,11 +20,11 @@ export default function ProductsCatalog() {
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">
             <li className="nav-item">
-                        <a className="nav-link active" href="#" >Все</a>
+                        <button className="nav-link active" >Все</button>
                     </li>
                 {categories.map(o =>
                     <li className="nav-item">
-                        <a className="nav-link active" href="#" >{o.title}</a>
+                        <button className="nav-link active" >{o.title}</button>
                     </li>)}
             </ul>
         </Fragment>

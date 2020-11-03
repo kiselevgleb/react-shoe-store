@@ -3,15 +3,6 @@ import { NavLink } from 'react-router-dom'
 // import mainLogo from './img/header-logo.png';
 
 export default function Footer(props) {
-    // const handleCatalog = () => {
-    //     props.history.push('/react-shoe-store/build/catalog.html');
-    // };
-    // const handleAbout = () => {
-    //     props.history.push('/react-shoe-store/build/about.html');
-    // };
-    // const handleContacts = () => {
-    //     props.history.push('/react-shoe-store/build/contacts.html');
-    // };
 
     return (
         <Fragment>
@@ -23,15 +14,12 @@ export default function Footer(props) {
                             <ul className="nav flex-column">
                                 <li className="nav-item">
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/about.html" >О магазине</NavLink>
-                                    {/* <a onClick={handleAbout} className="nav-link">О магазине</a> */}
                                     </li>
                                 <li className="nav-item">
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog.html" >Каталог</NavLink> 
-                                    {/* <a onClick={handleCatalog} className="nav-link">Каталог</a> */}
                                     </li>
                                 <li className="nav-item">
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts.html" >Контакты</NavLink> 
-                                    {/* <a onClick={handleContacts} className="nav-link">Контакты</a> */}
                                     </li>
                             </ul>
                         </section>
