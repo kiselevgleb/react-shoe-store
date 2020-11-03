@@ -109,7 +109,7 @@ export default function skillsReducer(state = initialState, action) {
       };
     case CHANGE_SEARCH_FIELD:
       const { searchChange } = action.payload;
-      const hasQuery = searchChange.trim() == '';
+      const hasQuery = searchChange.trim() === '';
       if (hasQuery) {
         return {
           ...state,

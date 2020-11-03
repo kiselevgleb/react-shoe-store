@@ -1,12 +1,12 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from 'react-loader';
 
 export default function ProductInfo(props) {
-    const { items, categories, hits, loading, error, search, orderInfo, cart } = useSelector(state => state.skills);
+    const { loading, error, orderInfo } = useSelector(state => state.skills);
     const [cartBut, setCartBut] = useState(false);
     const [orderSize, setOrderSize] = useState();
     const [orderCoin, setOrderCoin] = useState(1);
@@ -49,13 +49,13 @@ export default function ProductInfo(props) {
     const handleCart = (event) => {
         let masData = localStorage.getItem('orderInfo');
         let mas = [];
-        if (masData == '[]' || masData == null) {
+        if (masData === '[]' || masData === null) {
             localStorage.setItem('orderInfo', JSON.stringify([{ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id }]));
         }
         else {
             mas = JSON.parse(masData);
             mas.map((o) => {
-                if (o.id == orderInfo.id && o.size == orderSize) {
+                if (o.id === orderInfo.id && o.size === orderSize) {
                     o.coin += 1;
                 } else {
                     mas.push({ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id });
@@ -76,7 +76,7 @@ export default function ProductInfo(props) {
                             <h2 class="text-center">{orderInfo.title}</h2>
                             <div class="row">
                                 <div class="col-5">
-                                    {orderInfo.images[0] != undefined ? <img src={orderInfo.images[0]} class="img-fluid" alt="" /> : <img />}
+                                    {orderInfo.images[0] !== undefined ? <img src={orderInfo.images[0]} class="img-fluid" alt="pic" /> : <img />}
                                 </div>
                                 <div class="col-7">
                                     <table class="table table-bordered">

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
 
 export default function Items(props) {
-    const { items, categories, hits, loading, error, search, orderInfo } = useSelector(state => state.skills);
+    const { items, categories, loading, error } = useSelector(state => state.skills);
 
     const [cat, setCat] = useState("");
     const [coin, setCoin] = useState(6);

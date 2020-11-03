@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect  } from 'react';
+import React, { Fragment} from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
@@ -6,7 +6,7 @@ import Items from './items';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSearchField } from './actions/actionCreators';
 export default function Catalog(props) {
-    const { items, categories, hits, loading, error, search } = useSelector(state => state.skills);
+    const { search } = useSelector(state => state.skills);
     const dispatch = useDispatch();
 
     const handleSearch = evt => {
@@ -31,7 +31,7 @@ export default function Catalog(props) {
                     </div>
                 </div>
             </main>
-            <Footer></Footer>
+            <Footer history={props.history}></Footer>
         </Fragment>
     )
 }

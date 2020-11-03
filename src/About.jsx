@@ -41,7 +41,7 @@ export default function Error404(props) {
                     </div>
                 </div>
             </main>
-            <Footer></Footer>
+            <Footer history={props.history}></Footer>
         </Fragment>
     )
 }

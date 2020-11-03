@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import mainLogo from './img/header-logo.png';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeSearchField } from './actions/actionCreators';
 
 export default function Header(props) {

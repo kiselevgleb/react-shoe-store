@@ -12,7 +12,7 @@ export default function ProductsCatalog() {
     }
     )
 
-    if (setcCategories == undefined || setcCategories.length == 0) {
+    if (setcCategories === undefined || setcCategories.length === 0) {
         return null;
     }
 

@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, take, put, spawn, debounce, retry } from 'redux-saga/effects';
+import { takeEvery, takeLatest, put, spawn, debounce, retry } from 'redux-saga/effects';
 import { postCartSuccess, postCartFailure, getOrderInfoSuccess, getOrderInfoFailure, searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
 import { POST_CART_REQUEST, GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
 import { postCart, listItems, listHits, listCategories, itemsInCategory, addItems, searchItems, orderInfo } from '../api/index';

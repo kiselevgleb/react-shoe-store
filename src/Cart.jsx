@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
 import { getOrderInfoRequest, postCartRequest } from './actions/actionCreators';
 export default function Cart(props) {
-    const { items, categories, hits, loading, error, search, cart } = useSelector(state => state.skills);
+    const { loading, error, cart } = useSelector(state => state.skills);
     const dispatch = useDispatch();
     const [modal, setModal] = useState(false);
 

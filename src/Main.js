@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import Footer from './footer';
 import Header from './header';
 import Banner from './banner';
@@ -23,7 +23,7 @@ export default function Main(props) {
             </div>
                 </div>
             </main>
-            <Footer></Footer>
+            <Footer history={props.history}></Footer>
         </Fragment>
     )
 }
