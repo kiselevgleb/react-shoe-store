@@ -2,6 +2,15 @@ import React, { Fragment } from 'react';
 // import mainLogo from './img/header-logo.png';
 
 export default function Footer() {
+    const handleCatalog = () => {
+        props.history.push('/react-shoe-store/catalog.html');
+    };
+    const handleAbout = () => {
+        props.history.push('/react-shoe-store/about.html');
+    };
+    const handleContacts = () => {
+        props.history.push('/react-shoe-store/contacts.html');
+    };
 
     return (
         <Fragment>
@@ -11,9 +20,9 @@ export default function Footer() {
                         <section>
                             <h5>Информация</h5>
                             <ul className="nav flex-column">
-                                <li className="nav-item"><a href="/react-shoe-store/about.html" className="nav-link">О магазине</a></li>
-                                <li className="nav-item"><a href="/react-shoe-store/catalog.html" className="nav-link">Каталог</a></li>
-                                <li className="nav-item"><a href="/react-shoe-store/contacts.html" className="nav-link">Контакты</a></li>
+                                <li className="nav-item"><a onClick={handleAbout} className="nav-link">О магазине</a></li>
+                                <li className="nav-item"><a onClick={handleCatalog} className="nav-link">Каталог</a></li>
+                                <li className="nav-item"><a onClick={handleContacts} className="nav-link">Контакты</a></li>
                             </ul>
                         </section>
                     </div>

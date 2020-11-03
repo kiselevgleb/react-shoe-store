@@ -44,6 +44,17 @@ export default function Header(props) {
     const handleCart = () => {
         props.history.push('/react-shoe-store/cart.html');
     };
+    const handleCatalog = () => {
+        props.history.push('/react-shoe-store/catalog.html');
+    };
+    const handleAbout = () => {
+        props.history.push('/react-shoe-store/about.html');
+    };
+    const handleContacts = () => {
+        props.history.push('/react-shoe-store/contacts.html');
+    };
+
+
 
     return (
         <Fragment>
@@ -60,13 +71,13 @@ export default function Header(props) {
                                         <a className="nav-link" href="/react-shoe-store/">Главная</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/react-shoe-store/catalog.html">Каталог</a>
+                                        <a className="nav-link" onClick={handleCatalog}>Каталог</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/react-shoe-store/about.html">О магазине</a>
+                                        <a className="nav-link" onClick={handleAbout}>О магазине</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/react-shoe-store/contacts.html">Контакты</a>
+                                        <a className="nav-link" onClick={handleContacts}>Контакты</a>
                                     </li>
                                 </ul>
                                 <div>
