@@ -15,7 +15,6 @@ export default function ProductsCatalog() {
         return null;
     }
 
-
     return (
         <Fragment>
             <ul className="catalog-categories nav justify-content-center">

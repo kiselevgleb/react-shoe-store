@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom'
-// import mainLogo from './img/header-logo.png';
 
 export default function Footer(props) {
 

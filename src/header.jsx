@@ -52,24 +52,22 @@ export default function Header(props) {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                        <NavLink className="navbar-brand" exact to="/react-shoe-store/build/">
+                            <NavLink className="navbar-brand" exact to="/react-shoe-store/build/">
                                 <img src={mainLogo} alt="Bosa Noga" />
-                            </NavLink> 
-                            {/* <a className="navbar-brand" href="/react-shoe-store/build/">
-                            </a> */}
+                            </NavLink>
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item active">
-                                    <NavLink className="nav-link" exact to="/react-shoe-store/build/" >Главная</NavLink> 
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/" >Главная</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                    <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog.html" >Каталог</NavLink> 
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog.html" >Каталог</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                    <NavLink className="nav-link" exact to="/react-shoe-store/build/about.html" >О магазине</NavLink>
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/about.html" >О магазине</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                    <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts.html" >Контакты</NavLink> 
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts.html" >Контакты</NavLink>
                                     </li>
                                 </ul>
                                 <div>
