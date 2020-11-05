@@ -70,6 +70,7 @@ export default function Cart(props) {
 
     const handlePostOrder = evt => {
         evt.preventDefault();
+        console.log(sentBut)
         if (sentBut) {
             let items = cartJSON.map(o => ({ "id": o.id, "price": o.price, "count": o.coin }))
             let data = JSON.stringify({ "owner": { "phone": evt.target.phone.value, "address": evt.target.address.value, }, "items": items })
@@ -105,12 +106,13 @@ export default function Cart(props) {
             } else {
                 setInpCheckbox(false);
             }
-        }
+        };
+
         if (inpTel && inpAddress && inpCheckbox) {
             setSentBut(true);
         } else {
             setSentBut(false);
-        }
+        };
     };
 
     return (
