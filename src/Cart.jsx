@@ -88,19 +88,19 @@ export default function Cart(props) {
 
     const checkInput = evt => {
         if (evt.target.id == "phone") {
-            if (!inpTel && evt.target.value !== "") {
+            if (evt.target.value !== "") {
                 setInpTel(true);
             } else {
                 setInpTel(false);
             }
         } else if (evt.target.id == "address") {
-            if (!inpAddress && evt.target.value !== "") {
+            if (evt.target.value !== "") {
                 setInpAddress(true);
             } else {
                 setInpAddress(false);
             }
         } else if (evt.target.id == "agreement") {
-            if (!inpCheckbox && evt.target.value !== "") {
+            if (evt.target.value !== "") {
                 setInpCheckbox(true);
             } else {
                 setInpCheckbox(false);
@@ -162,18 +162,18 @@ export default function Cart(props) {
                             <div className="card" style={divStyle}>
                                 <form className="card-body" onSubmit={handlePostOrder}>
                                     <div className="form-group">
-                                        {!inpTel && middleCheck ? <label htmlFor="phone">Телефон</label> : <label htmlFor="phone">Телефон ERROR</label>}
+                                        {!inpTel && middleCheck ? <label htmlFor="phone">Телефон ERROR</label> : <label htmlFor="phone">Телефон </label>}
                                         {/* <label htmlFor="phone">Телефон</label> */}
                                         <input className="form-control" id="phone" placeholder="Ваш телефон" name="phone" onChange={checkInput} />
                                     </div>
                                     <div className="form-group">
-                                        {!inpAddress && middleCheck ? <label htmlFor="address">Адрес доставки</label> : <label htmlFor="address">Адрес доставки ERROR</label>}
+                                        {!inpAddress && middleCheck ? <label htmlFor="address">Адрес доставки ERROR</label> : <label htmlFor="address">Адрес доставки </label>}
                                         {/* <label htmlFor="address">Адрес доставки</label> */}
                                         <input className="form-control" id="address" placeholder="Адрес доставки" name="address" onChange={checkInput} />
                                     </div>
                                     <div className="form-group form-check">
-                                        {/* <input type="checkbox" className="form-check-input" id="agreement" onChange={checkInput} /> */}
-                                        <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>
+                                        <input type="checkbox" className="form-check-input" id="agreement" onChange={checkInput} />
+                                        {/* <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label> */}
                                         {!inpCheckbox && middleCheck ? <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки ERROR</label> : <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>}
                                     </div>
                                     <button type="submit" className="btn btn-outline-secondary">Оформить</button>
