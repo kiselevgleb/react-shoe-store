@@ -18,7 +18,7 @@ export default function Header(props) {
         if (searchBut) {
             if (searchInput !== "") {
                 setSearchBut(false);
-                props.history.push('/react-shoe-store/catalog.html');
+                props.history.push('/react-shoe-store/catalog');
                 dispatch(changeSearchField(searchInput));
 
             } else {
@@ -33,7 +33,7 @@ export default function Header(props) {
             if (searchBut) {
                 if (searchInput !== "") {
                     setSearchBut(false);
-                    props.history.push('/react-shoe-store/catalog.html');
+                    props.history.push('/react-shoe-store/catalog');
                     dispatch(changeSearchField(searchInput));
                 }
             }
@@ -43,7 +43,7 @@ export default function Header(props) {
         setSearchInput(evt.target.value);
     };
     const handleCart = () => {
-        props.history.push('/react-shoe-store/build/cart.html');
+        props.history.push('/react-shoe-store/build/cart');
     };
 
     return (
@@ -61,13 +61,13 @@ export default function Header(props) {
                                         <NavLink className="nav-link" exact to="/react-shoe-store/build/" >Главная</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog.html" >Каталог</NavLink>
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog" >Каталог</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/about.html" >О магазине</NavLink>
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/about" >О магазине</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts.html" >Контакты</NavLink>
+                                        <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts" >Контакты</NavLink>
                                     </li>
                                 </ul>
                                 <div>

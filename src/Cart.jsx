@@ -9,6 +9,11 @@ export default function Cart(props) {
     const { loading, error, cart } = useSelector(state => state.skills);
     const dispatch = useDispatch();
     const [modal, setModal] = useState(false);
+    const [sentBut, setSentBut] = useState(false);
+    const [inpTel, setInpTel] = useState(false);
+    const [inpAddress, setInpAddress] = useState(false);
+    const [inpCheckbox, setInpCheckbox] = useState(false);
+    const [middleCheck, setInpMiddleCheck] = useState(false);
 
     if (loading) {
         return <Loader></Loader>;
@@ -56,26 +61,58 @@ export default function Cart(props) {
             localStorage.removeItem('orderInfo');
         }
         localStorage.setItem('orderInfo', JSON.stringify(cartJSONFiltered));
-        props.history.push(`/react-shoe-store/build/cart.html`);
+        props.history.push(`/react-shoe-store/build/cart`);
     };
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
-        props.history.push(`/react-shoe-store/build/catalog/${id}.html`);
+        props.history.push(`/react-shoe-store/build/catalog/${id}`);
     };
 
     const handlePostOrder = evt => {
         evt.preventDefault();
-        let items = cartJSON.map(o => ({ "id": o.id, "price": o.price, "count": o.coin }))
-        let data = JSON.stringify({ "owner": { "phone": evt.target.phone.value, "address": evt.target.address.value, }, "items": items })
-        console.log(data);
-        dispatch(postCartRequest(data));
-        setModal(true);
-        localStorage.setItem('orderInfo', JSON.stringify([]));
-        console.log(cart);
+        if (sentBut) {
+            let items = cartJSON.map(o => ({ "id": o.id, "price": o.price, "count": o.coin }))
+            let data = JSON.stringify({ "owner": { "phone": evt.target.phone.value, "address": evt.target.address.value, }, "items": items })
+            dispatch(postCartRequest(data));
+            setModal(true);
+            localStorage.setItem('orderInfo', JSON.stringify([]));
+            setInpMiddleCheck(false);
+        } else {
+            setInpMiddleCheck(true);
+        }
     };
     const closeModal = evt => {
         setModal(false);
+        setSentBut(false);
     };
+
+    const checkInput = evt => {
+        if (evt.target.id == "phone") {
+            if (!inpTel && evt.target.value !== "") {
+                setInpTel(true);
+            } else {
+                setInpTel(false);
+            }
+        } else if (evt.target.id == "address") {
+            if (!inpAddress && evt.target.value !== "") {
+                setInpAddress(true);
+            } else {
+                setInpAddress(false);
+            }
+        } else if (evt.target.id == "agreement") {
+            if (!inpCheckbox && evt.target.value !== "") {
+                setInpCheckbox(true);
+            } else {
+                setInpCheckbox(false);
+            }
+        }
+        if (inpTel && inpAddress && inpCheckbox) {
+            setSentBut(true);
+        } else {
+            setSentBut(false);
+        }
+    };
+
     return (
         <Fragment>
             <Header history={props.history}></Header>
@@ -103,7 +140,7 @@ export default function Cart(props) {
                                             <th scope="row">{num += 1}</th>
                                             <td>
                                                 <a onClick={() => getOrderRequest(o.id)}>{o.title}</a>
-                                                </td>
+                                            </td>
 
                                             <td>{o.size}</td>
                                             <td>{o.coin}</td>
@@ -125,16 +162,19 @@ export default function Cart(props) {
                             <div className="card" style={divStyle}>
                                 <form className="card-body" onSubmit={handlePostOrder}>
                                     <div className="form-group">
-                                        <label htmlFor="phone">Телефон</label>
-                                        <input className="form-control" id="phone" placeholder="Ваш телефон" name="phone" />
+                                        {!inpTel && middleCheck ? <label htmlFor="phone">Телефон</label> : <label htmlFor="phone">Телефон ERROR</label>}
+                                        {/* <label htmlFor="phone">Телефон</label> */}
+                                        <input className="form-control" id="phone" placeholder="Ваш телефон" name="phone" onChange={checkInput} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="address">Адрес доставки</label>
-                                        <input className="form-control" id="address" placeholder="Адрес доставки" name="address" />
+                                        {!inpAddress && middleCheck ? <label htmlFor="address">Адрес доставки</label> : <label htmlFor="address">Адрес доставки ERROR</label>}
+                                        {/* <label htmlFor="address">Адрес доставки</label> */}
+                                        <input className="form-control" id="address" placeholder="Адрес доставки" name="address" onChange={checkInput} />
                                     </div>
                                     <div className="form-group form-check">
-                                        <input type="checkbox" className="form-check-input" id="agreement" />
+                                        {/* <input type="checkbox" className="form-check-input" id="agreement" onChange={checkInput} /> */}
                                         <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>
+                                        {!inpCheckbox && middleCheck ? <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки ERROR</label> : <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>}
                                     </div>
                                     <button type="submit" className="btn btn-outline-secondary">Оформить</button>
                                 </form>

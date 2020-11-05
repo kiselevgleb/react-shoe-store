@@ -16,12 +16,12 @@ function App(props) {
   return (
     <Router history={customHistory}>
       <Switch>
-        <Route path='/react-shoe-store/build/catalog/:id.html'  component={ProductInfo} />
+        <Route path='/react-shoe-store/build/catalog/:id'  component={ProductInfo} />
         <Route path='/react-shoe-store/build/404'  component={Error404} />
-        <Route path='/react-shoe-store/build/catalog.html'  component={Catalog} />
-        <Route path='/react-shoe-store/build/about.html'  component={About} />
-        <Route path='/react-shoe-store/build/contacts.html'  component={Contacts} />
-        <Route path='/react-shoe-store/build/cart.html'  component={Cart} />
+        <Route path='/react-shoe-store/build/catalog'  component={Catalog} />
+        <Route path='/react-shoe-store/build/about'  component={About} />
+        <Route path='/react-shoe-store/build/contacts'  component={Contacts} />
+        <Route path='/react-shoe-store/build/cart'  component={Cart} />
         <Route exact path='/react-shoe-store/build/'  component={Main} />
         <Route path='/react-shoe-store/build/' component={Error404} />
         {/* <Redirect from='/react-shoe-store/' to='/home'/> */}
