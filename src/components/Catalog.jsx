@@ -1,10 +1,11 @@
-import React, { Fragment} from 'react';
-import Footer from './footer';
-import Header from './header';
-import Banner from './banner';
-import Items from './items';
+import React, { Fragment } from 'react';
+import Footer from './Footer';
+import Header from './Header';
+import Banner from './Banner';
+import Items from './Items';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSearchField } from './actions/actionCreators';
+import { changeSearchField } from '../actions/actionCreators';
+
 export default function Catalog(props) {
     const { search } = useSelector(state => state.skills);
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function Catalog(props) {
                         <section className="catalog">
                             <h2 className="text-center">Каталог</h2>
                             <form className="catalog-search-form form-inline">
-                                <input className="form-control" placeholder="Поиск"  type="search" value={search} onChange={handleSearch} />
+                                <input className="form-control" placeholder="Поиск" type="search" value={search} onChange={handleSearch} />
                             </form>
                             <Items history={props.history}></Items>
                         </section>

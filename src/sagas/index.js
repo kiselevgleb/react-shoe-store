@@ -1,7 +1,30 @@
 import { takeEvery, takeLatest, put, spawn, debounce, retry } from 'redux-saga/effects';
-import { postCartSuccess, postCartFailure, getOrderInfoSuccess, getOrderInfoFailure, searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
-import { POST_CART_REQUEST, GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
-import { postCart, listItems, listHits, listCategories, itemsInCategory, addItems, searchItems, orderInfo } from '../api/index';
+import { getCartDataSuccess, getCartDataFailure, postCartSuccess, postCartFailure, getOrderInfoSuccess, getOrderInfoFailure, searchItemsSuccess, searchItemsFailure, searchItemsRequest, getAddItemsSuccess, getAddItemsFailure, getItemsSuccess, getItemsFailure, getHitSuccess, getHitFailure, getCategoriesSuccess, getCategoriesFailure, getItemsCatSuccess, getItemsCatFailure } from '../actions/actionCreators';
+import { GET_CARTDATA_REQUEST, POST_CART_REQUEST, GET_ORDERINFO_REQUEST, SEARCH_ITEMS_REQUEST, CHANGE_SEARCH_FIELD, GET_HIT_REQUEST, GET_ITEMS_REQUEST, GET_CATEGORIES_REQUEST, GET_ITEMSCAT_REQUEST, GET_ADDITEMS_REQUEST } from '../actions/actionTypes';
+import { postCart, listItems, listHits, listCategories, itemsInCategory, addItems, searchItems, orderInfo, getCartData } from '../api/index';
+
+
+function filterCartDataAction({ type, payload }) {
+    return type === GET_CARTDATA_REQUEST && payload.setData !== ''
+}
+
+// worker
+function* handleCartDataSaga(action) {
+    try {
+        const retryCount = 3;
+        const retryDelay = 1 * 1000; // ms
+        console.log(action.payload)
+        const data = yield retry(retryCount, retryDelay, getCartData, action.payload.setData);
+        yield put(getCartDataSuccess(data));
+    } catch (e) {
+        yield put(getCartDataFailure(e.message));
+    }
+}
+
+// watcher
+function* watchCartDataSaga() {
+    yield debounce(100, filterCartDataAction, handleCartDataSaga);
+}
 
 function filterChangeSearchAction({ type, payload }) {
     return type === CHANGE_SEARCH_FIELD && payload.searchChange.trim() !== ''
@@ -16,6 +39,8 @@ function* handleChangeSearchSaga(action) {
 function* watchChangeSearchSaga() {
     yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
 }
+
+
 
 // worker
 function* handleSearchItemsSaga(action) {
@@ -166,6 +191,7 @@ function* handlePostCartSaga(action) {
 }
 
 export default function* saga() {
+    yield spawn(watchCartDataSaga);
     yield spawn(watchPostCartSaga);
     yield spawn(watchGetItemsSaga);
     yield spawn(watchGetHitsSaga);

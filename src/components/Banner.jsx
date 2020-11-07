@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import ban from './img/banner.jpg';
+import ban from '../img/banner.jpg';
 
 export default function Banner() {
 

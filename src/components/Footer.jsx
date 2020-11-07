@@ -12,12 +12,15 @@ export default function Footer(props) {
                             <h5>Информация</h5>
                             <ul className="nav flex-column">
                                 <li className="nav-item">
+                                {/* <NavLink className="nav-link" exact to="/about" >О магазине</NavLink> */}
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/about" >О магазине</NavLink>
                                     </li>
                                 <li className="nav-item">
+                                {/* <NavLink className="nav-link" exact to="/catalog" >Каталог</NavLink>  */}
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog" >Каталог</NavLink> 
                                     </li>
                                 <li className="nav-item">
+                                {/* <NavLink className="nav-link" exact to="/contacts" >Контакты</NavLink>  */}
                                 <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts" >Контакты</NavLink> 
                                     </li>
                             </ul>

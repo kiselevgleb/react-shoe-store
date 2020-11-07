@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderInfoRequest, getHitRequest } from './actions/actionCreators';
+import { getOrderInfoRequest, getHitRequest } from '../actions/actionCreators';
 import Loader from 'react-loader';
 
 export default function Hit(props) {
@@ -18,6 +18,7 @@ export default function Hit(props) {
     const getOrderRequest = id => {
         console.log(id)
         dispatch(getOrderInfoRequest(id));
+        // props.history.push(`/catalog/${id}`);
         props.history.push(`/react-shoe-store/build/catalog/${id}`);
     };
 

@@ -23,6 +23,9 @@ import {
   POST_CART_REQUEST,
   POST_CART_FAILURE,
   POST_CART_SUCCESS,
+  GET_CARTDATA_REQUEST,
+  GET_CARTDATA_FAILURE,
+  GET_CARTDATA_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from '../actions/actionTypes'
 
@@ -35,10 +38,35 @@ const initialState = {
   search: '',
   orderInfo: {},
   cart: false,
+  cartData: '[]',
 };
 
 export default function skillsReducer(state = initialState, action) {
   switch (action.type) {
+
+    case GET_CARTDATA_REQUEST:
+      const { setData } = action.payload;
+      console.log(setData)
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_CARTDATA_FAILURE:
+      const { errorCartData } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        error: errorCartData,
+      };
+    case GET_CARTDATA_SUCCESS:
+      const { cartData } = action.payload;
+      return {
+        ...state,
+        cartData: cartData,
+        loading: false,
+        error: null,
+      };
 
     case POST_CART_REQUEST:
       const { data } = action.payload;

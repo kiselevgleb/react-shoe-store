@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import Footer from './footer';
-import Header from './header';
-import Banner from './banner';
+import Footer from './Footer';
+import Header from './Header';
+import Banner from './Banner';
 export default function Error404(props) {
 
     return (

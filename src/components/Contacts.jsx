@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import Footer from './footer';
-import Header from './header';
-import Banner from './banner';
-export default function Error404(props) {
+import Footer from './Footer';
+import Header from './Header';
+import Banner from './Banner';
+export default function Contacts(props) {
 
     return (
         <Fragment>

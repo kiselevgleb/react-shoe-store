@@ -1,23 +1,23 @@
-import React, { Fragment, useState } from 'react';
-import mainLogo from './img/header-logo.png';
-import { useDispatch } from 'react-redux';
-import { changeSearchField } from './actions/actionCreators';
+import React, { Fragment, useState, useEffect } from 'react';
+import mainLogo from '../img/header-logo.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSearchField } from '../actions/actionCreators';
 import { NavLink } from 'react-router-dom'
 
 export default function Header(props) {
+    const { loading, error, cartData } = useSelector(state => state.skills);
     const [searchInput, setSearchInput] = useState("");
     const [searchBut, setSearchBut] = useState(false);
     const dispatch = useDispatch();
-    const cartInfo = localStorage.getItem('orderInfo')
     let cionInCart = 0;
-    if (cartInfo != null) {
-        cionInCart = JSON.parse(cartInfo).length
+    if (cartData != []&&cartData != null) {
+        cionInCart = JSON.parse(cartData).length
     }
-
     const handleSearchBut = () => {
         if (searchBut) {
             if (searchInput !== "") {
                 setSearchBut(false);
+                // props.history.push('/catalog');
                 props.history.push('/react-shoe-store/catalog');
                 dispatch(changeSearchField(searchInput));
 
@@ -33,6 +33,7 @@ export default function Header(props) {
             if (searchBut) {
                 if (searchInput !== "") {
                     setSearchBut(false);
+                    // props.history.push('/catalog');
                     props.history.push('/react-shoe-store/catalog');
                     dispatch(changeSearchField(searchInput));
                 }
@@ -43,6 +44,7 @@ export default function Header(props) {
         setSearchInput(evt.target.value);
     };
     const handleCart = () => {
+        // props.history.push('/cart');
         props.history.push('/react-shoe-store/build/cart');
     };
 
@@ -52,21 +54,26 @@ export default function Header(props) {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                            <NavLink className="navbar-brand" exact to="/react-shoe-store/build/">
+                            {/* <NavLink className="navbar-brand" exact to="/"> */}
+                                <NavLink className="navbar-brand" exact to="/react-shoe-store/build/">
                                 <img src={mainLogo} alt="Bosa Noga" />
                             </NavLink>
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item active">
+                                        {/* <NavLink className="nav-link" exact to="/" >Главная</NavLink> */}
                                         <NavLink className="nav-link" exact to="/react-shoe-store/build/" >Главная</NavLink>
                                     </li>
                                     <li className="nav-item">
+                                        {/* <NavLink className="nav-link" exact to="/catalog" >Каталог</NavLink> */}
                                         <NavLink className="nav-link" exact to="/react-shoe-store/build/catalog" >Каталог</NavLink>
                                     </li>
                                     <li className="nav-item">
+                                        {/* <NavLink className="nav-link" exact to="/about" >О магазине</NavLink> */}
                                         <NavLink className="nav-link" exact to="/react-shoe-store/build/about" >О магазине</NavLink>
                                     </li>
                                     <li className="nav-item">
+                                        {/* <NavLink className="nav-link" exact to="/contacts" >Контакты</NavLink> */}
                                         <NavLink className="nav-link" exact to="/react-shoe-store/build/contacts" >Контакты</NavLink>
                                     </li>
                                 </ul>

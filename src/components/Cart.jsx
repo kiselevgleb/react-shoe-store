@@ -1,12 +1,13 @@
-import React, { Fragment, useState } from 'react';
-import Footer from './footer';
-import Header from './header';
-import Banner from './banner';
+import React, { Fragment, useState, useEffect } from 'react';
+import Footer from './Footer';
+import Header from './Header';
+import Banner from './Banner';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
-import { getOrderInfoRequest, postCartRequest } from './actions/actionCreators';
+import { getCartDataRequest, getOrderInfoRequest, postCartRequest } from '../actions/actionCreators';
+
 export default function Cart(props) {
-    const { loading, error, cart } = useSelector(state => state.skills);
+    const { loading, error, cartData } = useSelector(state => state.skills);
     const dispatch = useDispatch();
     const [modal, setModal] = useState(false);
     const [sentBut, setSentBut] = useState(false);
@@ -14,6 +15,14 @@ export default function Cart(props) {
     const [inpAddress, setInpAddress] = useState(false);
     const [inpCheckbox, setInpCheckbox] = useState(false);
     const [middleCheck, setInpMiddleCheck] = useState(false);
+
+    useEffect(() => {
+        if (inpTel && inpAddress && inpCheckbox) {
+            setSentBut(true);
+        } else {
+            setSentBut(false);
+        };
+    }, [inpTel, inpAddress, inpCheckbox])
 
     if (loading) {
         return <Loader></Loader>;
@@ -27,19 +36,19 @@ export default function Cart(props) {
     };
 
     let modalWin = {
-        'z-index': '9999',
+        'zIndex': '9999',
         'position': 'absolute',
         'top': '50%',
         'left': '50%',
-        'min-width': '250px',
-        'min-height': '100px',
+        'minWidth': '250px',
+        'minHeight': '100px',
         'padding': '15px',
-        'border-radius': '10px',
+        'borderRadius': '10px',
         'transform': 'translate(-50%, -50%)',
         'background': '#fff',
     };
     let bgModal = {
-        'z-index': '9998',
+        'zIndex': '9998',
         'position': 'absolute',
         'width': '100%',
         'height': '100%',
@@ -49,40 +58,38 @@ export default function Cart(props) {
     }
     let num = 0;
     let total = 0;
-    let cartJSON = JSON.parse(localStorage.getItem('orderInfo'));
 
-    if (cartJSON != null) {
+    let cartJSON = cartData !== '[]' ? JSON.parse(cartData) : [];
+    if (cartJSON.length !== 0) {
         cartJSON.forEach((o) => total += o.price * o.coin);
     }
 
     const handleDel = id => {
         let cartJSONFiltered = cartJSON.filter((o) => Number(o.id) !== id);
-        if (cartJSONFiltered.length === 0) {
-            localStorage.removeItem('orderInfo');
-        }
-        localStorage.setItem('orderInfo', JSON.stringify(cartJSONFiltered));
+        dispatch(getCartDataRequest(cartJSONFiltered));
+        // props.history.push(`/cart`);
         props.history.push(`/react-shoe-store/build/cart`);
     };
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
+        // props.history.push(`/catalog/${id}`);
         props.history.push(`/react-shoe-store/build/catalog/${id}`);
     };
 
     const handlePostOrder = evt => {
         evt.preventDefault();
-        console.log(sentBut)
         if (sentBut) {
             let items = cartJSON.map(o => ({ "id": o.id, "price": o.price, "count": o.coin }))
             let data = JSON.stringify({ "owner": { "phone": evt.target.phone.value, "address": evt.target.address.value, }, "items": items })
             dispatch(postCartRequest(data));
             setModal(true);
-            localStorage.setItem('orderInfo', JSON.stringify([]));
+            dispatch(getCartDataRequest('rem'));
             setInpMiddleCheck(false);
         } else {
             setInpMiddleCheck(true);
         }
     };
-    const closeModal = evt => {
+    const closeModal = () => {
         setModal(false);
         setSentBut(false);
     };
@@ -101,17 +108,11 @@ export default function Cart(props) {
                 setInpAddress(false);
             }
         } else if (evt.target.id == "agreement") {
-            if (evt.target.value !== "") {
+            if (evt.target.checked) {
                 setInpCheckbox(true);
             } else {
                 setInpCheckbox(false);
             }
-        };
-
-        if (inpTel && inpAddress && inpCheckbox) {
-            setSentBut(true);
-        } else {
-            setSentBut(false);
         };
     };
 
@@ -143,7 +144,6 @@ export default function Cart(props) {
                                             <td>
                                                 <a onClick={() => getOrderRequest(o.id)}>{o.title}</a>
                                             </td>
-
                                             <td>{o.size}</td>
                                             <td>{o.coin}</td>
                                             <td>{`${o.price} руб.`}</td>
@@ -165,17 +165,14 @@ export default function Cart(props) {
                                 <form className="card-body" onSubmit={handlePostOrder}>
                                     <div className="form-group">
                                         {!inpTel && middleCheck ? <label htmlFor="phone">Телефон ERROR</label> : <label htmlFor="phone">Телефон </label>}
-                                        {/* <label htmlFor="phone">Телефон</label> */}
                                         <input className="form-control" id="phone" placeholder="Ваш телефон" name="phone" onChange={checkInput} />
                                     </div>
                                     <div className="form-group">
                                         {!inpAddress && middleCheck ? <label htmlFor="address">Адрес доставки ERROR</label> : <label htmlFor="address">Адрес доставки </label>}
-                                        {/* <label htmlFor="address">Адрес доставки</label> */}
                                         <input className="form-control" id="address" placeholder="Адрес доставки" name="address" onChange={checkInput} />
                                     </div>
                                     <div className="form-group form-check">
                                         <input type="checkbox" className="form-check-input" id="agreement" onChange={checkInput} />
-                                        {/* <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label> */}
                                         {!inpCheckbox && middleCheck ? <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки ERROR</label> : <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>}
                                     </div>
                                     <button type="submit" className="btn btn-outline-secondary">Оформить</button>

@@ -23,10 +23,29 @@ import {
   POST_CART_REQUEST,
   POST_CART_FAILURE,
   POST_CART_SUCCESS,
+  GET_CARTDATA_REQUEST,
+  GET_CARTDATA_FAILURE,
+  GET_CARTDATA_SUCCESS,
   CHANGE_SEARCH_FIELD,
 } from './actionTypes';
 
-export const postCartRequest = (data) => ({
+
+export const getCartDataRequest = setData => ({
+  type: GET_CARTDATA_REQUEST,
+  payload: { setData },
+});
+
+export const getCartDataFailure = errorCartData => ({
+  type: GET_CARTDATA_FAILURE,
+  payload: { errorCartData },
+});
+
+export const getCartDataSuccess = cartData => ({
+  type: GET_CARTDATA_SUCCESS,
+  payload: { cartData },
+});
+
+export const postCartRequest = data => ({
   type: POST_CART_REQUEST,
   payload: { data },
 });

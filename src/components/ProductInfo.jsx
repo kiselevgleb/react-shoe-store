@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from 'react';
-import Footer from './footer';
-import Header from './header';
-import Banner from './banner';
-import { useSelector } from 'react-redux';
+import Footer from './Footer';
+import Header from './Header';
+import Banner from './Banner';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
+import { getCartDataRequest } from '../actions/actionCreators';
 
 export default function ProductInfo(props) {
-    const { loading, error, orderInfo } = useSelector(state => state.skills);
+    const { loading, error, orderInfo, cartData } = useSelector(state => state.skills);
     const [cartBut, setCartBut] = useState(false);
     const [orderSize, setOrderSize] = useState();
     const [orderCoin, setOrderCoin] = useState(1);
+    const dispatch = useDispatch();
 
     if (loading) {
         return <Loader></Loader>;
@@ -19,8 +21,6 @@ export default function ProductInfo(props) {
     }
 
     const handleButSize = (event) => {
-        console.log(event.target.parentNode.parentNode.childNodes[1].childNodes[1].childNodes[1]);
-
         if (cartBut) {
             setCartBut(false);
             event.target.className = 'catalog-item-size';
@@ -32,7 +32,6 @@ export default function ProductInfo(props) {
         }
     };
     const handleButCoin = (event) => {
-        console.log(event.target.previousSibling);
         if (event.target.previousSibling !== null) {
             if (Number(event.target.previousSibling.innerText) < 10) {
                 event.target.previousSibling.innerText = Number(event.target.previousSibling.innerText) + 1;
@@ -46,14 +45,13 @@ export default function ProductInfo(props) {
             }
         }
     };
-    const handleCart = (event) => {
-        let masData = localStorage.getItem('orderInfo');
+    const handleCart = () => {
         let mas = [];
-        if (masData === '[]' || masData === null) {
-            localStorage.setItem('orderInfo', JSON.stringify([{ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id }]));
-        }
-        else {
-            mas = JSON.parse(masData);
+        if (cartData == '[]') {
+            const data = [{ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id }];
+            dispatch(getCartDataRequest(data));
+        } else {
+            mas = JSON.parse(cartData);
             mas.map((o) => {
                 if (o.id === orderInfo.id && o.size === orderSize) {
                     o.coin += 1;
@@ -61,8 +59,9 @@ export default function ProductInfo(props) {
                     mas.push({ title: orderInfo.title, size: orderSize, coin: orderCoin, price: orderInfo.price, id: orderInfo.id });
                 }
             });
-            localStorage.setItem('orderInfo', JSON.stringify(mas));
+            dispatch(getCartDataRequest(mas));
         }
+        // props.history.push(`/cart`);
         props.history.push(`/react-shoe-store/build/cart`);
     };
     return (

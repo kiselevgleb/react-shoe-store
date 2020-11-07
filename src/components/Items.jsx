@@ -1,14 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { getOrderInfoRequest, getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsRequest } from './actions/actionCreators';
+import { getOrderInfoRequest, getItemsRequest, getCategoriesRequest, getItemsCatRequest, getAddItemsRequest } from '../actions/actionCreators';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'react-loader';
 
 export default function Items(props) {
     const { items, categories, loading, error } = useSelector(state => state.skills);
-
     const [cat, setCat] = useState("");
     const [coin, setCoin] = useState(6);
     const dispatch = useDispatch();
+    const [it, setIt] = useState([]);
 
     useEffect(() => {
         dispatch(getItemsRequest());
@@ -18,15 +18,18 @@ export default function Items(props) {
     const getProducts = id => {
         setCoin(6);
         setCat(id);
+        setIt([]);
         dispatch(getItemsCatRequest(id));
     };
 
     const loadItems = () => {
+        setIt(it.concat(items));
         dispatch(getAddItemsRequest(coin, cat));
         setCoin(coin + 6);
     };
     const getOrderRequest = id => {
         dispatch(getOrderInfoRequest(id));
+        // props.history.push(`/catalog/${id}`);
         props.history.push(`/react-shoe-store/build/catalog/${id}`);
     };
 
@@ -49,7 +52,7 @@ export default function Items(props) {
                     </li>)}
             </ul>
             <div class="row">
-                {items.map(o =>
+                {it.concat(items).map(o =>
                     <div className="col-4">
                         <div className="card catalog-item-card">
                             <img src={o.images[0]} className="card-img-top img-fluid" alt={o.title} />
@@ -62,7 +65,7 @@ export default function Items(props) {
                     </div>)}
             </div>
             <div class="text-center">
-                <button class="btn btn-outline-primary" onClick={() => loadItems()}>Загрузить ещё</button>
+                {items.length > 5 ? <button class="btn btn-outline-primary" onClick={() => loadItems()}>Загрузить ещё</button> : <></>}
             </div>
         </Fragment>
     )

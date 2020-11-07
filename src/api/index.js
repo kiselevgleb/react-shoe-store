@@ -53,7 +53,6 @@ export const listCategories = async () => {
 }
 
 export const addItems = async (coin, cat) => {
-    console.log(cat)
     if (cat !== "") {
         const response = await fetch(`${process.env.REACT_APP_ITEMS_URL}?categoryId=${cat}&offset=${coin}`);
         if (!response.ok) {
@@ -75,4 +74,18 @@ export const searchItems = async (search) => {
         throw new Error(response.statusText);
     }
     return await response.json();
+}
+export const getCartData = async (setData) => {
+    let cartInfo = await localStorage.getItem('orderInfo');
+
+    if (cartInfo == null && setData === 'ref') {
+        await localStorage.setItem('orderInfo', JSON.stringify([]));
+    } else if (setData === 'rem') {
+        await localStorage.setItem('orderInfo', JSON.stringify([]));
+    } else if (cartInfo != null && setData === 'ref') {
+    } else {
+        await localStorage.setItem('orderInfo', JSON.stringify(setData));
+    }
+    cartInfo = await localStorage.getItem('orderInfo');
+    return cartInfo;
 }
